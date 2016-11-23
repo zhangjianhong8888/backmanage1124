@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.qydata.dao.RoleMapper">
+
+    <insert id="insertRole" parameterType="Role" useGeneratedKeys="true" keyProperty="rid">
+      insert into demoshiro.role(title,flag,createtime)
+      values(#{title},#{flag},sysdate())
+        <selectKey keyProperty="rid" resultType="Integer" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+</mapper>

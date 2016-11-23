@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.qydata.dao.AdminMapper">
+
+    <!-- 是进行登录认证使用的，即，根据身份信息取得密码进行认证 -->
+    <select id="findById" parameterType="String" resultType="Admin">
+        SELECT id,name,loginName,password,tel,type,createTime,deptNo
+        FROM qyauth.Admin
+        WHERE loginName=#{loginName}
+    </select>
+    <!-- 根据用户名查询出该用户对用的所有角色的标记名称（千万不要用中文） -->
+    <select id="findAllRoleByAdmin" parameterType="String" resultType="String">
+        SELECT flag
+        FROM qyauth.Role
+        WHERE id IN (
+                      SELECT roleId
+                      FROM qyauth.RoleAdmin
+                      WHERE loginName=#{loginName})
+    </select>
+    <!-- 查询出一个用户对应的所有权限数据 -->
+    <select id="findAllActionByAdmin" parameterType="String" resultType="String">
+        SELECT flag
+        FROM qyauth.Action
+        WHERE id IN (
+                        SELECT actionId
+                        FROM qyauth.RoleAction
+                        WHERE roleId IN (
+                                      SELECT roleId
+                                      FROM qyauth.RoleAdmin
+                                      WHERE loginName=#{loginName}))
+    </select>
+
+</mapper>
