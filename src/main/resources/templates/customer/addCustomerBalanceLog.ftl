@@ -232,6 +232,20 @@
 
                                                 <div class="controls">
 
+                                                    <input type="text" id="authId" name="authId" value="${customer.id}" placeholder="medium" class="m-wrap medium">
+
+                                                    <span class="help-inline" id="authIdMsg" name="authIdMsg"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <label class="control-label">Meduam Input</label>
+
+                                                <div class="controls">
+
                                                     <input type="text" placeholder="medium" class="m-wrap medium">
 
                                                     <span class="help-inline">Some hint here</span>
@@ -248,13 +262,11 @@
 
                                                     <select class="medium m-wrap" tabindex="1">
 
-                                                        <option value="Category 1">Category 1</option>
+                                                        <#list customerBalanceModifyReasonList as reasonList>
 
-                                                        <option value="Category 2">Category 2</option>
+                                                        <option value="reasonList.id">reasonList.name</option>
 
-                                                        <option value="Category 3">Category 5</option>
-
-                                                        <option value="Category 4">Category 4</option>
+                                                        </#list>
 
                                                     </select>
 

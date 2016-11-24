@@ -2,8 +2,10 @@ package org.qydata.service;
 
 
 import org.qydata.entity.Customer;
+import org.qydata.entity.CustomerBalanceModifyReason;
 import org.qydata.vo.PageModel;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +41,11 @@ public interface CustomerService {
      * @return
      */
     public boolean insertCustomerIp(String beginIp,String endIp,String customerId);
+    /**
+     * 查询全部的CustomerBalanceModifyReason
+     * @return
+     */
+    public List<CustomerBalanceModifyReason> findAll();
 
 
 //    /**

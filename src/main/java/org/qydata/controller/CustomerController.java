@@ -2,6 +2,7 @@ package org.qydata.controller;
 
 import org.qydata.entity.Admin;
 import org.qydata.entity.Customer;
+import org.qydata.entity.CustomerBalanceModifyReason;
 import org.qydata.service.CustomerService;
 import org.qydata.vo.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,16 +88,52 @@ public class CustomerController {
         model.addAttribute(id);
         return "customer/addCustomerIp";
     }
-
     @RequestMapping(value = "/insertCustomerIp",method = POST)
     public String insertCustomerIp(String beginIp,String endIp,String customerId){
         customerService.insertCustomerIp(beginIp,endIp,customerId);
         return "redirect:/customer/findCustomerByAdminId";
     }
-    @RequestMapping(value = "/addCustomerBalanceLog")
-    public  String addCustomerBalanceLog(){
+
+    @RequestMapping(value = "/addCustomerBalanceLogAction")
+    public  String addCustomerBalanceLog(Model model){
+       List<CustomerBalanceModifyReason> list= customerService.findAll();
+       model.addAttribute("customerBalanceModifyReasonList",list);
         return "/customer/addCustomerBalanceLog";
     }
+    @RequestMapping(value = "/findCustomerByAuthId/{authId}")
+    public String findCustomerByAuthId(@PathVariable("authId") String authId,Model model,HttpServletResponse response){
+        Customer customer = customerService.findByAuthId(authId);
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            if(customer!=null){
+                model.addAttribute(customer);
+                out.print("yes");
+            }else{
+                out.print("no");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "/customer/addCustomerBalanceLogAction";
+    }
+    @RequestMapping(value = "/findCustomerByAuthIdAdd/{authId}")
+    public void findCustomerByAuthIdAdd(@PathVariable("authId") String authId,HttpServletResponse response){
+        Customer customer = customerService.findByAuthId(authId);
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            if(customer!=null){
+                out.print("yes");
+            }else{
+                out.print("no");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 

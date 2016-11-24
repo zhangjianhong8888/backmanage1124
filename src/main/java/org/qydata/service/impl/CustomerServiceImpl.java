@@ -3,10 +3,7 @@ package org.qydata.service.impl;
 
 import org.qydata.dao.CustomerDeptAdminMapper;
 import org.qydata.dao.CustomerMapper;
-import org.qydata.entity.Admin;
-import org.qydata.entity.Customer;
-import org.qydata.entity.CustomerDeptAdmin;
-import org.qydata.entity.CustomerIp;
+import org.qydata.entity.*;
 import org.qydata.service.CustomerService;
 import org.qydata.vo.ChangeIp;
 import org.qydata.vo.PageModel;
@@ -108,6 +105,11 @@ public class CustomerServiceImpl implements CustomerService {
             flag = customerMapper.insertCustomerIp(vo);
         }
         return flag;
+    }
+
+    @Override
+    public List<CustomerBalanceModifyReason> findAll() {
+        return customerMapper.findAll();
     }
 
 

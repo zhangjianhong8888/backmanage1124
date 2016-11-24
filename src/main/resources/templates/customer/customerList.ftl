@@ -221,26 +221,24 @@
 
                                     <div class="dataTables_info" id="sample_1_info">当前显示第 ${lineSize} 页 共 ${totlePage} 页</div>
                                 </div>
-
+                                <#assign lineSize = "${lineSize}"/>
+                                <#assign totlePage = "${totlePage}"/>
+                                <#if totlePage gt 1>
                                 <div class="span6">
-
                                     <div class="dataTables_paginate paging_bootstrap pagination">
                                         <ul>
-
+                                            <#if lineSize gt 1>
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=1"><span class="hidden-480">首页</span></a></li>
-
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
-
+                                            </#if>
+                                            <#if lineSize lt totlePage>
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
-
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
-
+                                            </#if>
                                         </ul>
-
                                     </div>
-
                                 </div>
-
+                                </#if>
                             </div>
 
                         </div>

@@ -58,7 +58,7 @@ public interface CustomerMapper {
      * 查询全部的CustomerBalanceModifyReason
      * @return
      */
-    public CustomerBalanceModifyReason findAll();
+    public List<CustomerBalanceModifyReason> findAll();
 
 
 

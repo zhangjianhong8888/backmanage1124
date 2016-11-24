@@ -9,6 +9,7 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -47,6 +48,19 @@ public class ShiroConfig {
         return filterRegistration;
 	}
 	/**
+	 * 使用内置的表单登录控制验证
+	 * @return
+	 */
+	@Bean
+	public FormAuthenticationFilter formAuthenticationFilter(){
+		FormAuthenticationFilter authenticationFilter = new FormAuthenticationFilter();
+		//定义出需要使用的参数，此参数与表单一一对应
+		authenticationFilter.setUsernameParam("loginName");
+		authenticationFilter.setPasswordParam("password");
+		authenticationFilter.setLoginUrl("/shiroLogin");
+		return authenticationFilter;
+	}
+	/**
 	 *  配置shiro过滤器
 	 * @see org.apache.shiro.spring.web.ShiroFilterFactoryBean
 	 * @return
@@ -66,10 +80,10 @@ public class ShiroConfig {
 		filters.put("anon", new AnonymousFilter());
 		bean.setFilters(filters);
 		Map<String, String> chains = new HashMap<String,String>();
-		chains.put("/view/shiroLogin", "anon");
 		chains.put("/view/loginUrl", "anon");
-		chains.put("/view/unauthUrl", "anon");
-		//chains.put("/view/**", "authc");
+		chains.put("/view/successUrl", "authc");
+		chains.put("/view/unauthUrl", "authc");
+
 		chains.put("/user/**", "authc,perms");
 		chains.put("/dept/**","authc,perms");
 		chains.put("/emp/**","authc,perms");
@@ -89,7 +103,6 @@ public class ShiroConfig {
 		return manager;
 	}
 	/**自定义realm
-	 * @see UserRealm--->AuthorizingRealm
 	 * @return
 	 */
 	@Bean

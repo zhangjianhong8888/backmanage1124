@@ -189,7 +189,7 @@
 
                             <!-- BEGIN FORM-->
 
-                            <form action="/customer/insertCustomer" id="form_sample_1" class="form-horizontal" method="post">
+                            <form action="/customer/insertCustomer" id="form_sample_1" class="form-horizontal" method="post" onsubmit="return validateCustomer()">
                                 <div class="alert alert-error hide">
                                     <button class="close" data-dismiss="alert"></button>
                                     You have some form errors. Please check below.
@@ -201,14 +201,16 @@
                                 <div class="control-group">
                                     <label class="control-label">公司名称<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input type="text" name="name" data-required="1" class="span6 m-wrap"/>
+                                        <input type="text" id="name" name="name" data-required="1" class="span6 m-wrap"/>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">账&nbsp;&nbsp;&nbsp;&nbsp;户<span class="required">*</span></label>
                                     <div class="controls">
-                                        <input type="text" name="authId" class="span6 m-wrap"/>
-                                        <span class="help-block">公司名称首字母小写</span>
+
+                                        <input type="text" id="authIdAdd" name="authId" class="span6 m-wrap"/>
+
+                                        <span class="help-block" id="authIdAddMsg">公司名称首字母小写</span>
                                     </div>
                                 </div>
 
