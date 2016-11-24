@@ -50,6 +50,11 @@
         insert into qydata.CustomerIp(customerId,beginIp,endIp,beginIpRaw,endIpRaw)
         values(#{customerId},#{beginIp},#{endIp},#{beginIpRaw},#{endIpRaw})
     </insert>
+    <!--查询全部的CustomerBalanceModifyReason-->
+    <select id="findAll" resultType="CustomerBalanceModifyReason">
+        select id,name
+        from qydata.CustomerBalanceModifyReason
+    </select>
 
 
 

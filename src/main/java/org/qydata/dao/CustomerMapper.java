@@ -2,6 +2,7 @@ package org.qydata.dao;
 
 
 import org.qydata.entity.Customer;
+import org.qydata.entity.CustomerBalanceModifyReason;
 import org.qydata.entity.CustomerIp;
 
 import java.util.List;
@@ -52,6 +53,12 @@ public interface CustomerMapper {
      * @return
      */
     public boolean insertCustomerIp(CustomerIp customerIp);
+
+    /**
+     * 查询全部的CustomerBalanceModifyReason
+     * @return
+     */
+    public CustomerBalanceModifyReason findAll();
 
 
 

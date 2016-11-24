@@ -212,8 +212,6 @@
 
                                         <form action="/customer/#" class="form-horizontal" method="post">
 
-
-
                                             <div class="control-group">
 
                                                 <label class="control-label">Meduam Input</label>
