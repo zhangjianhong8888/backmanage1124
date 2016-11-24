@@ -547,7 +547,8 @@
                     </a>
                     <ul class="sub-menu">
                         <li ><a href="/customer/addCustomer">新增客户</a></li>
-                        <li ><a href="/customer/findCustomerByAdminId">客户列表</a></li>
+                        <li ><a href="/customer/findCustomerByAdminId">查看客户信息</a></li>
+                        <li ><a href="/customer/#">余额变更</a></li>
                     </ul>
                 </li>
 
@@ -1030,7 +1031,15 @@
 
 <script type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-37564768-1']);  _gaq.push(['_setDomainName', 'keenthemes.com']);  _gaq.push(['_setAllowLinker', true]);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();
 </script>
-
+<script type="text/javascript">
+    function add(){
+        var oTr = document.getElementById("addDiv");
+        var newTr = oTr.cloneNode(true);
+        document.getElementById("cloneAddDiv").appendChild(newTr);
+        //newTr.cells[0].firstChild.value = newTr.rowIndex;
+        //document.getElementById("b1").disabled = newTr.rowIndex ==5 ;
+    }
+</script>
 </body>
 </html>
 </#macro>

@@ -36,6 +36,20 @@
                         where adminId=#{param3})
         limit #{param1},#{param2}
     </select>
+    <!--统计当前登陆者可见客户的所有数据-->
+    <select id="getAllCountByAdminId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(id)
+        from qydata.Customer
+        where id in (
+                        select customerId
+                        from qyauth.CustomerDeptAdmin
+                        where adminId=#{param})
+    </select>
+    <!--插入Ip-->
+    <insert id="insertCustomerIp" parameterType="CustomerIp">
+        insert into qydata.CustomerIp(customerId,beginIp,endIp,beginIpRaw,endIpRaw)
+        values(#{customerId},#{beginIp},#{endIp},#{beginIpRaw},#{endIpRaw})
+    </insert>
 
 
 

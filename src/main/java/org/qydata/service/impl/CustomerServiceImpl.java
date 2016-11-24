@@ -6,7 +6,9 @@ import org.qydata.dao.CustomerMapper;
 import org.qydata.entity.Admin;
 import org.qydata.entity.Customer;
 import org.qydata.entity.CustomerDeptAdmin;
+import org.qydata.entity.CustomerIp;
 import org.qydata.service.CustomerService;
+import org.qydata.vo.ChangeIp;
 import org.qydata.vo.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,8 +86,28 @@ public class CustomerServiceImpl implements CustomerService {
             }
         }
         PageModel<Customer> pageModelA = new PageModel<Customer>();
+        pageModelA.setRows(customerMapper.getAllCountByAdminId(adminId));
         pageModelA.setList(customerMapper.findCustomerByAdminId(pageModel.getBeginIndex(),pageModel.getPageSize(),adminId));
         return pageModelA;
+    }
+
+    @Override
+    public boolean insertCustomerIp(String beginIp,String endIp,String customerId) {
+        List<Long> listA = ChangeIp.spiltIpLong(beginIp);
+        List<Long> listB = ChangeIp.spiltIpLong(endIp);
+        List<String> listC = ChangeIp.spiltIp(beginIp);
+        List<String> listD = ChangeIp.spiltIp(endIp);
+        CustomerIp vo = new CustomerIp();
+        boolean flag = false;
+        for (int i=0;i<listA.size();i++){
+            vo.setBeginIp(listA.get(i));
+            vo.setEndIp(listB.get(i));
+            vo.setBeginIpRaw(listC.get(i));
+            vo.setEndIpRaw(listD.get(i));
+            vo.setCustomerId(Integer.parseInt(customerId));
+            flag = customerMapper.insertCustomerIp(vo);
+        }
+        return flag;
     }
 
 

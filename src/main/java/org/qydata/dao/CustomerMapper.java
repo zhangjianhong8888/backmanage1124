@@ -2,6 +2,7 @@ package org.qydata.dao;
 
 
 import org.qydata.entity.Customer;
+import org.qydata.entity.CustomerIp;
 
 import java.util.List;
 
@@ -38,16 +39,22 @@ public interface CustomerMapper {
      * @return 如果有数据，则以List集合的形式返回，如果没有返回空（size==0）
      */
     public List<Customer> findCustomerByAdminId(Integer page,Integer rows,Integer adminId);
+    /**
+     * 获取总的数据量
+     * @param adminId 当前登录者 Id
+     * @return
+     */
+    public Integer getAllCountByAdminId(Integer adminId);
+
+    /**
+     * 插入Ip
+     * @param customerIp
+     * @return
+     */
+    public boolean insertCustomerIp(CustomerIp customerIp);
 
 
 
-
-
-//    /**
-//     * 获取总的数据量
-//     * @return
-//     */
-//    public Integer getAllCount();
 //
 //    /**
 //     * 根据Id修改客户信息

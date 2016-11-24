@@ -31,6 +31,15 @@ public interface CustomerService {
      */
     public PageModel<Customer> findCustomerByAdminId(Map<String,Object> map);
 
+    /**
+     * 插入Ip
+     * @param beginIp
+     * @param endIp
+     * @param customerId
+     * @return
+     */
+    public boolean insertCustomerIp(String beginIp,String endIp,String customerId);
+
 
 //    /**
 //     * 查询所有客户信息

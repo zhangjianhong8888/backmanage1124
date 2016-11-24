@@ -208,7 +208,7 @@
                                     <td class="numeric">${customer.balance}</td>
                                     <td class="numeric">${customer.status}</td>
                                     <td class="numeric">${customer.createTime}</td>
-                                    <td class="numeric"><a href="#">添加Ip</a></td>
+                                    <td class="numeric"><a href="/customer/addCustomerIp/${customer.id}">添加Ip</a></td>
                                 </tr>
                                 </#list>
                                 </tbody>
@@ -219,7 +219,7 @@
 
                                 <div class="span6">
 
-                                    <div class="dataTables_info" id="sample_1_info">当前显示第 1 页 共 25 页</div>
+                                    <div class="dataTables_info" id="sample_1_info">当前显示第 ${lineSize} 页 共 ${totlePage} 页</div>
                                 </div>
 
                                 <div class="span6">
@@ -227,13 +227,13 @@
                                     <div class="dataTables_paginate paging_bootstrap pagination">
                                         <ul>
 
-                                            <li class="next"><a href="#"><span class="hidden-480">首页</span></a></li>
+                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=1"><span class="hidden-480">首页</span></a></li>
 
-                                            <li class="next"><a href="#"><span class="hidden-480">上一页</span></a></li>
+                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
 
-                                            <li class="next"><a href="#"><span class="hidden-480">下一页</span></a></li>
+                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
 
-                                            <li class="next"><a href="#"><span class="hidden-480">尾页</span></a></li>
+                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
 
                                         </ul>
 
