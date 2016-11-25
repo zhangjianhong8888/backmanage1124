@@ -9,9 +9,9 @@ public class PageModel<T> {
     private Integer pageSize;//每页条数
     private Integer cpage;//当前页
     private Integer rows;//总条数
-    private int totalpage;//总页数
-    private int beginIndex;//起始页
-    private int endIndex;//结束页
+    private Integer totalpage;//总页数
+    private Integer beginIndex;//起始页
+    private Integer endIndex;//结束页
     private List<T> list;//集合
 
     public void setCpage(Integer cpage) {

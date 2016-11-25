@@ -41,7 +41,7 @@
 
                 <a class="brand" href="index.html">
 
-                    <img src="media/image/logo.png" alt="logo" />
+                    <img src="/image/logo.png" alt="logo" />
 
                 </a>
 
@@ -51,7 +51,7 @@
 
                 <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
 
-                    <img src="media/image/menu-toggler.png" alt="" />
+                    <img src="/image/menu-toggler.png" alt="" />
 
                 </a>
 
@@ -201,7 +201,7 @@
 
                                 <a href="inbox.html?a=view">
 
-                                    <span class="photo"><img src="media/image/avatar2.jpg" alt="" /></span>
+                                    <span class="photo"><img src="/image/avatar2.jpg" alt="" /></span>
 
                                     <span class="subject">
 
@@ -227,7 +227,7 @@
 
                                 <a href="inbox.html?a=view">
 
-                                    <span class="photo"><img src="media/image/avatar3.jpg" alt="" /></span>
+                                    <span class="photo"><img src="/image/avatar3.jpg" alt="" /></span>
 
                                     <span class="subject">
 
@@ -253,7 +253,7 @@
 
                                 <a href="inbox.html?a=view">
 
-                                    <span class="photo"><img src="media/image/avatar1.jpg" alt="" /></span>
+                                    <span class="photo"><img src="/image/avatar1.jpg" alt="" /></span>
 
                                     <span class="subject">
 
@@ -1019,8 +1019,6 @@
 
 <script src="/js/jquery.uniform.min.js" type="text/javascript" ></script>
 
-<script src="/js/customer.js" type="text/javascript" ></script>
-
 <script src="/js/app.js"></script>
 
 <script>
@@ -1028,12 +1026,47 @@
     jQuery(document).ready(function() {
         App.init();
     });
-
 </script>
 
 <script type="text/javascript">  var _gaq = _gaq || [];  _gaq.push(['_setAccount', 'UA-37564768-1']);  _gaq.push(['_setDomainName', 'keenthemes.com']);  _gaq.push(['_setAllowLinker', true]);  _gaq.push(['_trackPageview']);  (function() {    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);  })();
 </script>
+<script>
+    $(document).ready(function(){
 
+        $("#authId").blur(function(){
+            $("#authIdMsg").load("/customer/findCustomerByAuthId/"+$("#authId").val(),
+                    function(responseTxt){
+                        if(responseTxt=="yes")
+                            $("#authIdMsg").html("");
+                        if(responseTxt=="no")
+                            $("#authIdMsg").html("该账户不存在！");
+                    });
+        });
+
+        $("#authIdAdd").blur(function(){
+            $("#authIdAddMsg").load("/customer/findCustomerByAuthIdAdd/"+$("#authIdAdd").val(),
+                    function(responseTxt){
+                        if(responseTxt=="yes")
+                            $("#authIdAddMsg").html("该账户已存在！");
+                        if(responseTxt=="no")
+                            $("#authIdAddMsg").html("");
+                    });
+        });
+
+    });
+
+    function add(){
+        var oTr = document.getElementById("addDiv");
+        var newTr = oTr.cloneNode(true);
+        document.getElementById("cloneAddDiv").appendChild(newTr);
+    }
+
+    function addCustomerApi(){
+        var oTr = document.getElementById("addCustomerApi");
+        var newTr = oTr.cloneNode(true);
+        document.getElementById("cloneAddCustomerApi").appendChild(newTr);
+    }
+</script>
 </body>
 </html>
 </#macro>

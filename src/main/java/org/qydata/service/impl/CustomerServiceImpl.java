@@ -112,6 +112,31 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.findAll();
     }
 
+    @Override
+    public PageModel<CustomerIp> findAllIpByCustomerId(Map<String, Object> map) {
+        Set<Map.Entry<String,Object>> set = map.entrySet();
+        Iterator<Map.Entry<String,Object>> it = set.iterator();
+        PageModel<CustomerIp> pageModel= null;
+        Integer customerId= null;
+        while(it.hasNext()){
+            Map.Entry<String,Object> me = it.next();
+            if(me.getKey().equals("pageModel")){
+                pageModel = (PageModel) me.getValue();
+            }if(me.getKey().equals("customerId") ){
+                customerId = (Integer) me.getValue();
+            }
+        }
+        PageModel<CustomerIp> pageModelA = new PageModel<CustomerIp>();
+        pageModelA.setRows(customerMapper.getAllCountByCustomerId(customerId));
+        pageModelA.setList(customerMapper.findAllIpByCustomerId(pageModel.getBeginIndex(),pageModel.getPageSize(),customerId));
+        return pageModelA;
+    }
+
+    @Override
+    public boolean deleteIpById(Integer id) {
+        return customerMapper.deleteIpById(id);
+    }
+
 
 //    @Override
 //    public PageModel<Customer> selectAll(PageModel<Customer> pageModel) {

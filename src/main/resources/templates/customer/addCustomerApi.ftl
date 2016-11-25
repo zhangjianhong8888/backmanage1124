@@ -200,7 +200,7 @@
 
                                     <li><a href="#portlet_tab2" data-toggle="tab">Grid</a></li>
 
-                                    <li class="active"><a href="#portlet_tab1" data-toggle="tab">Default</a></li>
+                                    <li class="active"><a href="javaScript:;" onclick="addCustomerApi()" data-toggle="tab">Default</a></li>
 
                                 </ul>
 
@@ -210,17 +210,35 @@
 
                                         <!-- BEGIN FORM-->
 
-                                        <form action="/customer/addCustomerBalanceLog" class="form-horizontal" method="post" onsubmit="return validateCustomerBalanceLog()">
+                                        <form action="/customer/addCustomerApi" class="form-horizontal" method="post">
+
+                                            <div id="cloneAddCustomerApi">
+
+                                            <div id="addCustomerApi">
 
                                             <div class="control-group">
 
-                                                <label class="control-label">账&nbsp;&nbsp;&nbsp;&nbsp;户</label>
+                                                <label class="control-label">价&nbsp;&nbsp;&nbsp;&nbsp;格</label>
 
                                                 <div class="controls">
 
-                                                    <input type="text" id="authId" name="authId" class="m-wrap medium">
+                                                    <input type="text" id="price" name="price" class="m-wrap medium">
 
-                                                    <span class="help-inline" id="authIdMsg"></span>
+                                                    <span id="priceMsg" class="help-inline"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="control-group" style="display: none">
+
+                                                <label class="control-label">客户ID</label>
+
+                                                <div class="controls">
+
+                                                    <input type="text" id="customerId" name="customerId" value="${customerId}" class="m-wrap medium">
+
+                                                    <span id="customerIdMsg" class="help-inline"></span>
 
                                                 </div>
 
@@ -228,29 +246,15 @@
 
                                             <div class="control-group">
 
-                                                <label class="control-label">金&nbsp;&nbsp;&nbsp;&nbsp;额</label>
+                                                <label class="control-label">供应商</label>
 
                                                 <div class="controls">
 
-                                                    <input type="text" id="amount" name="amount" class="m-wrap medium">
+                                                    <select id="apiId" name="apiId" class="medium m-wrap" tabindex="1">
 
-                                                    <span class="help-inline" id="amountMsg"></span>
+                                                        <#list apiList as api>
 
-                                                </div>
-
-                                            </div>
-
-                                            <div class="control-group">
-
-                                                <label class="control-label">原&nbsp;&nbsp;&nbsp;&nbsp;因</label>
-
-                                                <div class="controls">
-
-                                                    <select id="reasonId" name="reasonId" class="medium m-wrap" tabindex="1">
-
-                                                        <#list customerBalanceModifyReasonList as reasonList>
-
-                                                        <option value="${reasonList.id}">${reasonList.name}</option>
+                                                        <option value="${api.id}">${api.name}</option>
 
                                                         </#list>
 
@@ -258,6 +262,26 @@
 
                                                 </div>
 
+                                            </div>
+                                            <div class="control-group">
+
+                                                <label class="control-label">是否启用</label>
+
+                                                <div class="controls">
+
+                                                    <select id="enabled" name="enabled" class="medium m-wrap" tabindex="1">
+
+                                                        <option value="1">是</option>
+
+                                                        <option value="0">否</option>
+
+                                                    </select>
+
+                                                </div>
+
+                                            </div>
+
+                                            </div>
                                             </div>
 
                                             <div class="form-actions">

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.qydata.dao.CustomerBalanceLogMapper">
+
+    <!--余额变动日志-->
+    <insert id="insertcustomerBalanceLog" parameterType="CustomerBalanceLog" useGeneratedKeys="true" keyProperty="id">
+      insert into qydata.CustomerBalanceLog(reasonId,customerId,amount,createtime)
+      values(#{reasonId},#{customerId},#{amount},sysdate())
+    </insert>
+</mapper>

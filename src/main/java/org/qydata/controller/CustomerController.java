@@ -1,8 +1,8 @@
 package org.qydata.controller;
 
-import org.qydata.entity.Admin;
-import org.qydata.entity.Customer;
-import org.qydata.entity.CustomerBalanceModifyReason;
+import org.qydata.entity.*;
+import org.qydata.service.CustomerApiService;
+import org.qydata.service.CustomerBalanceLogService;
 import org.qydata.service.CustomerService;
 import org.qydata.vo.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,10 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CustomerBalanceLogService customerBalanceLogService;
+    @Autowired
+    private CustomerApiService customerApiService;
 
 
     private Integer getLineSize(String lineSize){
@@ -40,7 +44,7 @@ public class CustomerController {
         return Integer.parseInt(lineSize);
     }
     //客户列表
-    @RequestMapping(value = ("/findCustomerByAdminId"),method = GET)
+    @RequestMapping(value = ("/findCustomerByAdminId"))
     public String findCustomerByAdminId(HttpServletRequest request,Model model){
         Admin admin = (Admin)request.getSession().getAttribute("adminInfo");
         PageModel<Customer> pageModel = new PageModel();
@@ -83,6 +87,13 @@ public class CustomerController {
         }
         return "redirect:/customer/findCustomerByAdminId";
     }
+
+    /**
+     * 添加Ip
+     * @param id
+     * @param model
+     * @return
+     */
     @RequestMapping("/addCustomerIp/{id}")
     public String addCustomerIp(@PathVariable("id") String id,Model model){
         model.addAttribute(id);
@@ -94,12 +105,116 @@ public class CustomerController {
         return "redirect:/customer/findCustomerByAdminId";
     }
 
-    @RequestMapping(value = "/addCustomerBalanceLogAction")
-    public  String addCustomerBalanceLog(Model model){
+    /**
+     * 余额变动日志
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/addCustomerBalanceLogAction",method = GET)
+    public  String addCustomerBalanceLogAction(Model model){
        List<CustomerBalanceModifyReason> list= customerService.findAll();
        model.addAttribute("customerBalanceModifyReasonList",list);
         return "/customer/addCustomerBalanceLog";
     }
+    @RequestMapping(value = "/addCustomerBalanceLog",method = POST)
+    public String addCustomerBalanceLog(String authId, String amount,String reasonId){
+        System.out.println(authId);
+        System.out.println(amount);
+        System.out.println(reasonId);
+       boolean flag = customerBalanceLogService.insertcustomerBalanceLog(authId,amount,reasonId);
+       if(flag){
+           return "redirect:/customer/findCustomerByAdminId";
+       }
+        return "/customer/addCustomerBalanceLogAction";
+    }
+    /**
+     * 添加新客户时验证账户名是否已存在
+     * @param authId
+     * @param response
+     */
+    @RequestMapping(value = "/findCustomerByAuthIdAdd/{authId}")
+    public void findCustomerByAuthIdAdd(@PathVariable("authId") String authId,HttpServletResponse response){
+        Customer customer = customerService.findByAuthId(authId);
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            if(customer!=null){
+                out.print("yes");
+            }else{
+                out.print("no");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //添加CustomerApi
+    @RequestMapping(value = "/addCustomerApiAction/{customerId}",method = GET)
+    public String addCustomerApiAction(@PathVariable("customerId") String customerId,Model model){
+        List<Api> list = customerApiService.findAllApi();
+        model.addAttribute(customerId);
+        model.addAttribute("apiList",list);
+        return "/customer/addCustomerApi";
+    }
+    @RequestMapping(value = "/addCustomerApi",method = POST)
+    public String addCustomerApi(String price, String customerId, String apiId, String enabled){
+        boolean flag = customerApiService.insertCustomerApi(price,customerId,apiId,enabled);
+        if(flag){
+            return "redirect:/customer/findCustomerByAdminId";
+        }
+        return "";
+    }
+    //根据客户Id查看Ip
+    @RequestMapping(value = "/customerIpListAction/{customerId}",method = GET)
+    public String customerIpListAction(HttpServletRequest request,Model model,@PathVariable("customerId") String customerId){
+        PageModel<CustomerIp> pageModel = new PageModel<CustomerIp>();
+        Integer lineSize = this.getLineSize(request.getParameter("lineSize"));//当前页
+        Integer pageSize = 5;//每页显示条数
+        pageModel.setCpage(lineSize);
+        pageModel.setPageSize(pageSize);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("pageModel",pageModel);
+        map.put("customerId",Integer.parseInt(customerId));
+        PageModel<CustomerIp> pageModelA = customerService.findAllIpByCustomerId(map);
+        List<CustomerIp> list = pageModelA.getList();
+        Integer count = pageModelA.getRows();
+        Integer totlePage = null;
+        if(count%pageSize==0){
+            totlePage=(count/pageSize);
+        }else{
+            totlePage=(count/pageSize)+1;
+        }
+        model.addAttribute("customerId",customerId);
+        model.addAttribute("customerIpList",list);
+        model.addAttribute("totlePage",totlePage);
+        model.addAttribute("lineSize",lineSize);
+        return "customer/customerIpList";
+    }
+    @RequestMapping(value = "/deleteIp/{id}/{customerId}")
+    public String deleteIp(@PathVariable("id") String id,@PathVariable("customerId") String customerId){
+        boolean flag = customerService.deleteIpById(Integer.parseInt(id));
+        return "redirect:/customer/customerIpListAction/"+customerId;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @RequestMapping(value = "/findCustomerByAuthId/{authId}")
     public String findCustomerByAuthId(@PathVariable("authId") String authId,Model model,HttpServletResponse response){
         Customer customer = customerService.findByAuthId(authId);
@@ -117,27 +232,6 @@ public class CustomerController {
         }
         return "/customer/addCustomerBalanceLogAction";
     }
-    @RequestMapping(value = "/findCustomerByAuthIdAdd/{authId}")
-    public void findCustomerByAuthIdAdd(@PathVariable("authId") String authId,HttpServletResponse response){
-        Customer customer = customerService.findByAuthId(authId);
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            if(customer!=null){
-                out.print("yes");
-            }else{
-                out.print("no");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-
-
 
 
 

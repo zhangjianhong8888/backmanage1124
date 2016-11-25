@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class ChangeIp {
 
-    public static List spiltIp(String str){
+    public static List<String> spiltIp(String str){
         String [] strChar = str.split(",");
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
         for (int i=0;i<strChar.length;i++){
             list.add(strChar[i]);
         }

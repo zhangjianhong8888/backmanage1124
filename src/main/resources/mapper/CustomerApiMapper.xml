@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.qydata.dao.CustomerApiMapper">
+
+    <!--查询所有供应商Api-->
+    <select id="findAllApi" resultType="Api">
+      select id,name
+      from qydata.Api
+    </select>
+    <!--插入-->
+    <insert id="insertCustomerApi" parameterType="CustomerApi" useGeneratedKeys="true" keyProperty="id">
+        insert into qydata.CustomerApi(apiId,customerId,price,enabled,createTime)
+        values(#{apiId},#{customerId},#{price},#{enabled},sysdate())
+    </insert>
+</mapper>

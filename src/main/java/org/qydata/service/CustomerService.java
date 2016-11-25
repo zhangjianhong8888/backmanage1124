@@ -3,6 +3,7 @@ package org.qydata.service;
 
 import org.qydata.entity.Customer;
 import org.qydata.entity.CustomerBalanceModifyReason;
+import org.qydata.entity.CustomerIp;
 import org.qydata.vo.PageModel;
 
 import java.util.List;
@@ -46,6 +47,19 @@ public interface CustomerService {
      * @return
      */
     public List<CustomerBalanceModifyReason> findAll();
+
+    /**
+     * 查询客户Ip,并分页显示
+     * @param map
+     * @return
+     */
+    public PageModel<CustomerIp> findAllIpByCustomerId(Map<String,Object> map);
+    /**
+     * 根据Id删除Ip
+     * @param id
+     * @return
+     */
+    public boolean deleteIpById(Integer id);
 
 
 //    /**

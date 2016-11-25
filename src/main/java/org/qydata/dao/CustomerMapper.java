@@ -60,6 +60,29 @@ public interface CustomerMapper {
      */
     public List<CustomerBalanceModifyReason> findAll();
 
+    /**
+     * 查询客户Ip
+     * @param page 当前页第一条数据在表中的位置
+     * @param rows 每页显示记录数
+     * @param customerId 客户Id
+     * @return
+     */
+    public List<CustomerIp> findAllIpByCustomerId(Integer page,Integer rows,Integer customerId);
+
+    /**
+     * 根据客户Id获取总数据量
+     * @param customerId
+     * @return
+     */
+    public Integer getAllCountByCustomerId(Integer customerId);
+
+    /**
+     * 根据Id删除Ip
+     * @param id
+     * @return
+     */
+    public boolean deleteIpById(Integer id);
+
 
 
 //

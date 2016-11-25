@@ -73,4 +73,17 @@ public class CustomerApi implements Serializable {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerApi{" +
+                "id=" + id +
+                ", apiId=" + apiId +
+                ", customerId=" + customerId +
+                ", price=" + price +
+                ", enabled=" + enabled +
+                ", createTime=" + createTime +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }

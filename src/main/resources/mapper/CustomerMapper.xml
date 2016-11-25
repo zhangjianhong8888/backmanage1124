@@ -55,6 +55,21 @@
         select id,name
         from qydata.CustomerBalanceModifyReason
     </select>
+    <!--查询客户Ip-->
+    <select id="findAllIpByCustomerId" parameterType="java.lang.Integer" resultType="CustomerIp">
+        select id,customerId,beginIp,endIp,beginIpRaw,endIpRaw
+        from qydata.CustomerIp
+        where customerId=#{param3}
+        limit #{param1},#{param2}
+    </select>
+    <!--根据客户Id获取总数据量-->
+    <select id="getAllCountByCustomerId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select count(id) from qydata.CustomerIp where customerId=#{param}
+    </select>
+    <!--根据Id删除Ip-->
+    <delete id="deleteIpById" parameterType="java.lang.Integer">
+        delete from qydata.CustomerIp where id=#{param}
+    </delete>
 
 
 

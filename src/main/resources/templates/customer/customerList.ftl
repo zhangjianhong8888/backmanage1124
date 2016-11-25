@@ -201,14 +201,19 @@
                                 </thead>
                                 <tbody>
                                 <#list customerList as customer>
-                                <tr align="center">
+                                <tr>
                                     <td>${customer.name}</td>
                                     <td>${customer.authId}</td>
                                     <td class="numeric">${customer.typeId}</td>
                                     <td class="numeric">${customer.balance}</td>
                                     <td class="numeric">${customer.status}</td>
                                     <td class="numeric">${customer.createTime}</td>
-                                    <td class="numeric"><a href="/customer/addCustomerIp/${customer.id}">添加Ip</a></td>
+                                    <td class="numeric">
+                                        <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
+                                        <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
+                                        <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
+                                        <a href="">管理Api</a>
+                                    </td>
                                 </tr>
                                 </#list>
                                 </tbody>
@@ -221,17 +226,16 @@
 
                                     <div class="dataTables_info" id="sample_1_info">当前显示第 ${lineSize} 页 共 ${totlePage} 页</div>
                                 </div>
-                                <#assign lineSize = "${lineSize}"/>
-                                <#assign totlePage = "${totlePage}"/>
-                                <#if totlePage gt 1>
+
+                                <#if (totlePage>1)>
                                 <div class="span6">
                                     <div class="dataTables_paginate paging_bootstrap pagination">
                                         <ul>
-                                            <#if lineSize gt 1>
+                                            <#if (lineSize>1)>
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=1"><span class="hidden-480">首页</span></a></li>
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
                                             </#if>
-                                            <#if lineSize lt totlePage>
+                                            <#if (lineSize<totlePage)>
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
                                             <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
                                             </#if>

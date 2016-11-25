@@ -9,7 +9,6 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -51,45 +50,15 @@ public class ShiroConfig {
 	 * 使用内置的表单登录控制验证
 	 * @return
 	 */
-	@Bean
+	/*@Bean
 	public FormAuthenticationFilter formAuthenticationFilter(){
 		FormAuthenticationFilter authenticationFilter = new FormAuthenticationFilter();
 		//定义出需要使用的参数，此参数与表单一一对应
 		authenticationFilter.setUsernameParam("loginName");
 		authenticationFilter.setPasswordParam("password");
-		authenticationFilter.setLoginUrl("/shiroLogin");
+		authenticationFilter.setLoginUrl("/view/shiroLogin");
 		return authenticationFilter;
-	}
-	/**
-	 *  配置shiro过滤器
-	 * @see org.apache.shiro.spring.web.ShiroFilterFactoryBean
-	 * @return
-	 */
-	@Bean(name = "shiroFilter")
-	public ShiroFilterFactoryBean shiroFilter(){
-		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
-		bean.setSecurityManager(securityManager());
-		//出现错误之后的跳转路径
-		bean.setLoginUrl("/view/loginUrl");
-		//认证失败之后的跳转路径
-		bean.setUnauthorizedUrl("/view/unauthUrl");
-		//登录成功之后跳转访问路径
-		bean.setSuccessUrl("/view/successUrl");
-		Map<String, Filter>filters = Maps.newHashMap();
-		filters.put("perms", urlPermissionsFilter());
-		filters.put("anon", new AnonymousFilter());
-		bean.setFilters(filters);
-		Map<String, String> chains = new HashMap<String,String>();
-		chains.put("/view/loginUrl", "anon");
-		chains.put("/view/successUrl", "authc");
-		chains.put("/view/unauthUrl", "authc");
-
-		chains.put("/user/**", "authc,perms");
-		chains.put("/dept/**","authc,perms");
-		chains.put("/emp/**","authc,perms");
-		bean.setFilterChainDefinitionMap(chains);
-		return bean;
-	}
+	}*/
 	/**
 	 * 配置SecurityManager的管理
 	 * @return
@@ -214,6 +183,36 @@ public class ShiroConfig {
 		AuthorizationAttributeSourceAdvisor attributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
 		attributeSourceAdvisor.setSecurityManager(securityManager());
 		return attributeSourceAdvisor;
+	}
+	/**
+	 *  配置shiro过滤器
+	 * @see org.apache.shiro.spring.web.ShiroFilterFactoryBean
+	 * @return
+	 */
+	@Bean(name = "shiroFilter")
+	public ShiroFilterFactoryBean shiroFilter(){
+		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+		bean.setSecurityManager(securityManager());
+		//出现错误之后的跳转路径
+		bean.setLoginUrl("/view/loginUrl");
+		//认证失败之后的跳转路径
+		bean.setUnauthorizedUrl("/view/unauthUrl");
+		//登录成功之后跳转访问路径
+		bean.setSuccessUrl("/view/successUrl");
+		Map<String, Filter> filters = Maps.newHashMap();
+		filters.put("perms", urlPermissionsFilter());
+		filters.put("anon", new AnonymousFilter());
+		bean.setFilters(filters);
+		Map<String, String> chains = new HashMap<String,String>();
+		chains.put("/view/loginUrl", "anon");
+		chains.put("/view/successUrl", "authc");
+		chains.put("/view/unauthUrl", "authc");
+
+		chains.put("/user/**", "authc,perms");
+		chains.put("/dept/**","authc,perms");
+		chains.put("/emp/**","authc,perms");
+		bean.setFilterChainDefinitionMap(chains);
+		return bean;
 	}
 	/**
 	 * 配置Shiro在Spring中的生命周期的控制操作
