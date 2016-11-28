@@ -9,6 +9,7 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -41,16 +42,16 @@ public class ShiroConfig {
         filterRegistration.setEnabled(true);
         filterRegistration.addUrlPatterns("/*");
         filterRegistration.setDispatcherTypes(DispatcherType.REQUEST);
-		filterRegistration.setDispatcherTypes(DispatcherType.FORWARD);
-		filterRegistration.setDispatcherTypes(DispatcherType.INCLUDE);
-		filterRegistration.setDispatcherTypes(DispatcherType.ERROR);
+		//filterRegistration.setDispatcherTypes(DispatcherType.FORWARD);
+		//filterRegistration.setDispatcherTypes(DispatcherType.INCLUDE);
+		//filterRegistration.setDispatcherTypes(DispatcherType.ERROR);
         return filterRegistration;
 	}
 	/**
 	 * 使用内置的表单登录控制验证
 	 * @return
 	 */
-	/*@Bean
+	@Bean
 	public FormAuthenticationFilter formAuthenticationFilter(){
 		FormAuthenticationFilter authenticationFilter = new FormAuthenticationFilter();
 		//定义出需要使用的参数，此参数与表单一一对应
@@ -58,7 +59,7 @@ public class ShiroConfig {
 		authenticationFilter.setPasswordParam("password");
 		authenticationFilter.setLoginUrl("/view/shiroLogin");
 		return authenticationFilter;
-	}*/
+	}
 	/**
 	 * 配置SecurityManager的管理
 	 * @return
@@ -75,6 +76,7 @@ public class ShiroConfig {
 	 * @return
 	 */
 	@Bean
+	@DependsOn(value="lifecycleBeanPostProcessor")
 	public AdminRealm adminRealm() {
 		AdminRealm adminRealm = new AdminRealm();
 		adminRealm.setCacheManager(cacheManager());
@@ -137,6 +139,7 @@ public class ShiroConfig {
 	@Bean(name="sessionManager")
 	public DefaultWebSessionManager defaultWebSessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+		sessionManager.setCacheManager(cacheManager());
 		//定义的是全局的session会话超时时间，此操作会覆盖web中的超市时间配置
 		sessionManager.setGlobalSessionTimeout(1000000);
 		//删除所有无效的session对象，此时的session被保存在了内存里面
@@ -207,6 +210,10 @@ public class ShiroConfig {
 		chains.put("/view/loginUrl", "anon");
 		chains.put("/view/successUrl", "authc");
 		chains.put("/view/unauthUrl", "authc");
+		chains.put("/customer/findAllCustomerOne", "authc,roles,perms");
+		chains.put("/customer/findAllCustomerTwo", "authc,roles,perms");
+		chains.put("/customer/findAllCustomerThree", "authc,roles,perms");
+
 
 		chains.put("/user/**", "authc,perms");
 		chains.put("/dept/**","authc,perms");

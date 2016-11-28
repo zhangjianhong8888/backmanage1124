@@ -16,6 +16,7 @@ public class CustomerApi implements Serializable {
     private Long enabled;
     private Timestamp createTime;
     private Timestamp timestamp;
+    private Api api;
     public CustomerApi(){}
 
     public Integer getId() {
@@ -74,6 +75,14 @@ public class CustomerApi implements Serializable {
         this.timestamp = timestamp;
     }
 
+    public Api getApi() {
+        return api;
+    }
+
+    public void setApi(Api api) {
+        this.api = api;
+    }
+
     @Override
     public String toString() {
         return "CustomerApi{" +
@@ -84,6 +93,7 @@ public class CustomerApi implements Serializable {
                 ", enabled=" + enabled +
                 ", createTime=" + createTime +
                 ", timestamp=" + timestamp +
+                ", api=" + api +
                 '}';
     }
 }

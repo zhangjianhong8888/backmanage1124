@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,9 +44,9 @@ public class CustomerController {
         }
         return Integer.parseInt(lineSize);
     }
-    //客户列表
-    @RequestMapping(value = ("/findCustomerByAdminId"))
-    public String findCustomerByAdminId(HttpServletRequest request,Model model){
+    //三级管理员可见客户列表
+    @RequestMapping(value = ("/findAllCustomerThree"))
+    public String findAllCustomerThree(HttpServletRequest request,Model model){
         Admin admin = (Admin)request.getSession().getAttribute("adminInfo");
         PageModel<Customer> pageModel = new PageModel();
         Integer lineSize = this.getLineSize(request.getParameter("lineSize"));//当前页
@@ -53,9 +54,10 @@ public class CustomerController {
         pageModel.setCpage(lineSize);
         pageModel.setPageSize(pageSize);
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("pageModel",pageModel);
+        map.put("beginIndex",pageModel.getBeginIndex());
+        map.put("line",pageModel.getPageSize());
         map.put("adminId",admin.getId());
-        PageModel<Customer> pageModelA = customerService.findCustomerByAdminId(map);
+        PageModel<Customer> pageModelA = customerService.findAllCustomer(map);
         List<Customer> list = pageModelA.getList();
         Integer count = pageModelA.getRows();
         Integer totlePage = 0;
@@ -64,10 +66,66 @@ public class CustomerController {
         }else{
             totlePage=(count/pageSize)+1;
         }
+        model.addAttribute("count",count);
         model.addAttribute("customerList",list);
         model.addAttribute("totlePage",totlePage);
         model.addAttribute("lineSize",lineSize);
-        return "customer/customerList";
+        return "/customer/customerList";
+    }
+    //二级管理员可见客户列表
+    @RequestMapping(value = ("/findAllCustomerTwo"))
+    public String findAllCustomerTwo(HttpServletRequest request,Model model){
+        Admin admin = (Admin)request.getSession().getAttribute("adminInfo");
+        PageModel<Customer> pageModel = new PageModel();
+        Integer lineSize = this.getLineSize(request.getParameter("lineSize"));//当前页
+        Integer pageSize = 5;//每页显示条数
+        pageModel.setCpage(lineSize);
+        pageModel.setPageSize(pageSize);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("beginIndex",pageModel.getBeginIndex());
+        map.put("line",pageModel.getPageSize());
+        map.put("deptNo",admin.getDeptNo());
+        PageModel<Customer> pageModelA = customerService.findAllCustomer(map);
+        List<Customer> list = pageModelA.getList();
+        Integer count = pageModelA.getRows();
+        Integer totlePage = 0;
+        if(count%pageSize==0){
+            totlePage=(count/pageSize);
+        }else{
+            totlePage=(count/pageSize)+1;
+        }
+        model.addAttribute("count",count);
+        model.addAttribute("customerList",list);
+        model.addAttribute("totlePage",totlePage);
+        model.addAttribute("lineSize",lineSize);
+        return "/customer/customerList";
+    }
+    //一级管理员可见客户列表
+    @RequestMapping(value = ("/findAllCustomerOne"))
+    public String findAllCustomerOne(HttpServletRequest request,Model model){
+        Admin admin = (Admin)request.getSession().getAttribute("adminInfo");
+        PageModel<Customer> pageModel = new PageModel();
+        Integer lineSize = this.getLineSize(request.getParameter("lineSize"));//当前页
+        Integer pageSize = 5;//每页显示条数
+        pageModel.setCpage(lineSize);
+        pageModel.setPageSize(pageSize);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("beginIndex",pageModel.getBeginIndex());
+        map.put("line",pageModel.getPageSize());
+        PageModel<Customer> pageModelA = customerService.findAllCustomer(map);
+        List<Customer> list = pageModelA.getList();
+        Integer count = pageModelA.getRows();
+        Integer totlePage = 0;
+        if(count%pageSize==0){
+            totlePage=(count/pageSize);
+        }else{
+            totlePage=(count/pageSize)+1;
+        }
+        model.addAttribute("count",count);
+        model.addAttribute("customerList",list);
+        model.addAttribute("totlePage",totlePage);
+        model.addAttribute("lineSize",lineSize);
+        return "/customer/customerList";
     }
     //新增客户
     @RequestMapping(value = ("/addCustomer"),method = GET)
@@ -132,7 +190,7 @@ public class CustomerController {
      * @param authId
      * @param response
      */
-    @RequestMapping(value = "/findCustomerByAuthIdAdd/{authId}")
+    @RequestMapping(value = "/findCustomerByAuthId/{authId}")
     public void findCustomerByAuthIdAdd(@PathVariable("authId") String authId,HttpServletResponse response){
         Customer customer = customerService.findByAuthId(authId);
         PrintWriter out = null;
@@ -163,7 +221,54 @@ public class CustomerController {
         }
         return "";
     }
-    //根据客户Id查看Ip
+    //根据客户Id查看所对应的的所有Api
+    @RequestMapping(value = "/findAllCustomerApiList/{customerId}",method = GET)
+    public String findAllCustomerApiList(HttpServletRequest request,@PathVariable("customerId") String customerId,Model model){
+        PageModel<CustomerIp> pageModel = new PageModel<CustomerIp>();
+        Integer lineSize = this.getLineSize(request.getParameter("lineSize"));//当前页
+        Integer pageSize = 5;//每页显示条数
+        pageModel.setCpage(lineSize);
+        pageModel.setPageSize(pageSize);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("beginIndex",pageModel.getBeginIndex());
+        map.put("line",pageModel.getPageSize());
+        map.put("customerId",Integer.parseInt(customerId));
+        PageModel<CustomerApi> pageModelA = customerApiService.findAllByCustomerId(map);
+        List<CustomerApi> list = pageModelA.getList();
+        Integer count = pageModelA.getRows();
+        Integer totlePage = null;
+        if(count%pageSize==0){
+            totlePage=(count/pageSize);
+        }else{
+            totlePage=(count/pageSize)+1;
+        }
+        model.addAttribute("count",count);
+        model.addAttribute("customerId",customerId);
+        model.addAttribute("customerApiList",list);
+        model.addAttribute("totlePage",totlePage);
+        model.addAttribute("lineSize",lineSize);
+
+        return "/customer/customerApiList";
+    }
+
+    @RequestMapping(value = "/findCustomerApiById/{id}")
+    public String findCustomerApiById(@PathVariable("id") String id,Model model){
+        List<Api> list = customerApiService.findAllApi();
+        CustomerApi customerApi = customerApiService.findById(Integer.parseInt(id));
+        model.addAttribute("apiList",list);
+        model.addAttribute(customerApi);
+        return "/customer/updateCustomerApi";
+    }
+
+    @RequestMapping(value = "/updateCustomerApiById/{customerId}",method = POST)
+    public String updateCustomerApiById(CustomerApi customerApi,@PathVariable("customerId") String customerId){
+       boolean flag = customerApiService.updateCustomerApiById(customerApi);
+       if (flag){
+           return "redirect:/customer/findAllCustomerApiList/"+customerId;
+       }
+        return "";
+    }
+    //根据客户Id查看所有Ip
     @RequestMapping(value = "/customerIpListAction/{customerId}",method = GET)
     public String customerIpListAction(HttpServletRequest request,Model model,@PathVariable("customerId") String customerId){
         PageModel<CustomerIp> pageModel = new PageModel<CustomerIp>();
@@ -172,7 +277,8 @@ public class CustomerController {
         pageModel.setCpage(lineSize);
         pageModel.setPageSize(pageSize);
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("pageModel",pageModel);
+        map.put("beginIndex",pageModel.getBeginIndex());
+        map.put("line",pageModel.getPageSize());
         map.put("customerId",Integer.parseInt(customerId));
         PageModel<CustomerIp> pageModelA = customerService.findAllIpByCustomerId(map);
         List<CustomerIp> list = pageModelA.getList();
@@ -183,55 +289,55 @@ public class CustomerController {
         }else{
             totlePage=(count/pageSize)+1;
         }
+        model.addAttribute("count",count);
         model.addAttribute("customerId",customerId);
         model.addAttribute("customerIpList",list);
         model.addAttribute("totlePage",totlePage);
         model.addAttribute("lineSize",lineSize);
         return "customer/customerIpList";
     }
+
+    /**
+     * 删除客户Ip
+     * @param id
+     * @param customerId
+     * @return
+     */
     @RequestMapping(value = "/deleteIp/{id}/{customerId}")
     public String deleteIp(@PathVariable("id") String id,@PathVariable("customerId") String customerId){
         boolean flag = customerService.deleteIpById(Integer.parseInt(id));
         return "redirect:/customer/customerIpListAction/"+customerId;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @RequestMapping(value = "/findCustomerByAuthId/{authId}")
-    public String findCustomerByAuthId(@PathVariable("authId") String authId,Model model,HttpServletResponse response){
-        Customer customer = customerService.findByAuthId(authId);
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            if(customer!=null){
-                model.addAttribute(customer);
-                out.print("yes");
-            }else{
-                out.print("no");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "/customer/addCustomerBalanceLogAction";
+    @RequestMapping(value = "/aaaa")
+    @ResponseBody
+    public String aaaa(){
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("authId","bjsyqh");
+        map.put("amount",100);
+        System.out.println(customerService.updateBalanceByAuthId(map));
+        return "asdf";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

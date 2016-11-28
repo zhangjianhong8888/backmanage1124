@@ -2,14 +2,12 @@ package org.qydata.controller;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.qydata.entity.Admin;
 import org.qydata.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,18 +42,18 @@ public class ViewController {
      */
     @RequestMapping("/successUrl")
     public String successUrl(HttpServletRequest request) {
-        /*Subject subject = SecurityUtils.getSubject();
+        Subject subject = SecurityUtils.getSubject();
         Admin admin = null;
         try {
             admin = adminService.get((String) subject.getPrincipal());
             request.getSession().setAttribute("adminInfo",admin);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
         return "view/welcome";
     }
 
-    @RequestMapping("/shiroLogin")
+   /* @RequestMapping("/shiroLogin")
     public ModelAndView login(HttpServletRequest request, String loginName, String password) {
         ModelAndView mav = new ModelAndView();
         Subject subject = SecurityUtils.getSubject();
@@ -79,5 +77,5 @@ public class ViewController {
             mav.setViewName("view/login");
         }
         return mav;
-    }
+    }*/
 }

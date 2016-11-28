@@ -3,6 +3,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.qydata.dao.CustomerMapper">
 
+    <resultMap type="Customer" id="Customer_CustomerType_CustomerStatus_Admin">
+        <result column="id" property="id"/>
+        <result column="typeId" property="typeId"/>
+        <result column="name" property="name"/>
+        <result column="authId" property="authId"/>
+        <result column="authPass" property="authPass"/>
+        <result column="balance" property="balance"/>
+        <result column="status" property="status"/>
+        <result column="createTime" property="createTime"/>
+        <association property="customerType" javaType="CustomerType">
+            <id column="qctname" property="name"/>
+        </association>
+        <association property="customerStatus" javaType="CustomerStatus">
+            <id column="qcsname" property="name"/>
+        </association>
+        <association property="admin" javaType="Admin">
+            <id column="adminName" property="name"/>
+        </association>
+    </resultMap>
     <!--查询指定客户信息-->
     <select id="findByAuthId" parameterType="java.lang.String" resultType="Customer">
         SELECT id,typeId,name,authId,authPass,balance,createTime,timestamp,status
@@ -27,23 +46,48 @@
         </selectKey>
     </insert>
     <!--查询当前登录着可见的客户信息并分页显示-->
-    <select id="findCustomerByAdminId" parameterType="java.lang.Integer" resultType="Customer">
-        select id,typeId,name,authId,authPass,balance,createTime,timestamp,status
-        from qydata.Customer
-        where id in (
-                        select customerId
-                        from qyauth.CustomerDeptAdmin
-                        where adminId=#{param3})
-        limit #{param1},#{param2}
+    <select id="findAllCustomer" parameterType="java.util.Map" resultMap="Customer_CustomerType_CustomerStatus_Admin">
+        select c.id,c.typeId,c.name,c.authId,c.authPass,c.balance,c.status,c.createTime,c.qctname,c.qcsname,a.name adminName
+        from qyauth.CustomerDeptAdmin cda,qyauth.Admin a,(select qc.id,qc.typeId,qc.name,qc.authId,qc.authPass,qc.balance,qc.createTime,qc.timestamp,qc.status,qct.name qctname,qcs.name qcsname
+                                                          from qydata.Customer qc,qydata.CustomerType qct,qydata.CustomerStatus qcs
+                                                          where qc.typeId=qct.id and qc.status=qcs.id and qc.id in
+                                                          (
+                                                          select customerId
+                                                          from qyauth.CustomerDeptAdmin
+                                                            <where>
+                                                            <if test="adminId!=null and adminId!=''">
+                                                            and adminId=#{adminId}
+                                                            </if>
+                                                            <if test="deptNo!=null and deptNo!=''">
+                                                            and deptNo=#{deptNo}
+                                                            </if>
+                                                            </where>
+                                                          )) c
+        where cda.customerId=c.id and cda.adminId=a.id
+                                                        <if test="adminId!=null and adminId!=''">
+                                                          and cda.adminId=#{adminId}
+                                                        </if>
+                                                        <if test="deptNo!=null and deptNo!=''">
+                                                          and cda.deptNo=#{deptNo}
+                                                        </if>
+        limit #{beginIndex},#{line}
     </select>
     <!--统计当前登陆者可见客户的所有数据-->
-    <select id="getAllCountByAdminId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="getAllCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(id)
         from qydata.Customer
         where id in (
                         select customerId
                         from qyauth.CustomerDeptAdmin
-                        where adminId=#{param})
+                          <where>
+                            <if test="adminId!=null and adminId!=''">
+                            and adminId=#{adminId}
+                            </if>
+                            <if test="deptNo!=null and deptNo!=''">
+                            and deptNo=#{deptNo}
+                            </if>
+                          </where>
+                      )
     </select>
     <!--插入Ip-->
     <insert id="insertCustomerIp" parameterType="CustomerIp">
@@ -56,20 +100,24 @@
         from qydata.CustomerBalanceModifyReason
     </select>
     <!--查询客户Ip-->
-    <select id="findAllIpByCustomerId" parameterType="java.lang.Integer" resultType="CustomerIp">
+    <select id="findAllIpByCustomerId" parameterType="java.util.Map" resultType="CustomerIp">
         select id,customerId,beginIp,endIp,beginIpRaw,endIpRaw
         from qydata.CustomerIp
-        where customerId=#{param3}
-        limit #{param1},#{param2}
+        where customerId=#{customerId}
+        limit #{beginIndex},#{line}
     </select>
     <!--根据客户Id获取总数据量-->
-    <select id="getAllCountByCustomerId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-      select count(id) from qydata.CustomerIp where customerId=#{param}
+    <select id="getAllCountByCustomerId" parameterType="java.util.Map" resultType="java.lang.Integer">
+      select count(id) from qydata.CustomerIp where customerId=#{customerId}
     </select>
     <!--根据Id删除Ip-->
     <delete id="deleteIpById" parameterType="java.lang.Integer">
         delete from qydata.CustomerIp where id=#{param}
     </delete>
+    <!--根据账户修改余额-->
+    <update id="updateBalanceByAuthId" parameterType="java.util.Map">
+        update from qydata.Customer set balance=#{amount} where authId=#{authId}
+    </update>
 
 
 

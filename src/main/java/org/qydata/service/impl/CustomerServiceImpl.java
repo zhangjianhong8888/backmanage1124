@@ -69,23 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public PageModel<Customer> findCustomerByAdminId(Map<String,Object> map) {
-        Set<Map.Entry<String,Object>> set = map.entrySet();
-        Iterator<Map.Entry<String,Object>> it = set.iterator();
-        PageModel<Customer> pageModel= null;
-        Integer adminId= 0;
-        while(it.hasNext()){
-            Map.Entry<String,Object> me = it.next();
-            if(me.getKey().equals("pageModel")){
-                pageModel = (PageModel) me.getValue();
-            }if(me.getKey().equals("adminId") ){
-                adminId = (Integer) me.getValue();
-            }
-        }
-        PageModel<Customer> pageModelA = new PageModel<Customer>();
-        pageModelA.setRows(customerMapper.getAllCountByAdminId(adminId));
-        pageModelA.setList(customerMapper.findCustomerByAdminId(pageModel.getBeginIndex(),pageModel.getPageSize(),adminId));
-        return pageModelA;
+    public PageModel<Customer> findAllCustomer(Map<String,Object> map) {
+        PageModel<Customer> pageModel = new PageModel<Customer>();
+        pageModel.setRows(customerMapper.getAllCount(map));
+        pageModel.setList(customerMapper.findAllCustomer(map));
+        return pageModel;
     }
 
     @Override
@@ -114,27 +102,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public PageModel<CustomerIp> findAllIpByCustomerId(Map<String, Object> map) {
-        Set<Map.Entry<String,Object>> set = map.entrySet();
-        Iterator<Map.Entry<String,Object>> it = set.iterator();
-        PageModel<CustomerIp> pageModel= null;
-        Integer customerId= null;
-        while(it.hasNext()){
-            Map.Entry<String,Object> me = it.next();
-            if(me.getKey().equals("pageModel")){
-                pageModel = (PageModel) me.getValue();
-            }if(me.getKey().equals("customerId") ){
-                customerId = (Integer) me.getValue();
-            }
-        }
-        PageModel<CustomerIp> pageModelA = new PageModel<CustomerIp>();
-        pageModelA.setRows(customerMapper.getAllCountByCustomerId(customerId));
-        pageModelA.setList(customerMapper.findAllIpByCustomerId(pageModel.getBeginIndex(),pageModel.getPageSize(),customerId));
-        return pageModelA;
+        PageModel<CustomerIp> pageModel = new PageModel<CustomerIp>();
+        pageModel.setRows(customerMapper.getAllCountByCustomerId(map));
+        pageModel.setList(customerMapper.findAllIpByCustomerId(map));
+        return pageModel;
     }
 
     @Override
     public boolean deleteIpById(Integer id) {
         return customerMapper.deleteIpById(id);
+    }
+
+    @Override
+    public boolean updateBalanceByAuthId(Map<String, Object> map) {
+        return customerMapper.updateBalanceByAuthId(map);
     }
 
 

@@ -5,10 +5,12 @@ import org.qydata.entity.Api;
 import org.qydata.entity.CustomerApi;
 import org.qydata.service.CustomerApiService;
 import org.qydata.vo.ChangeIp;
+import org.qydata.vo.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jonhn on 2016/11/8.
@@ -38,5 +40,23 @@ public class CustomerApiServiceImpl implements CustomerApiService{
             flag= customerApiMapper.insertCustomerApi(customerApi);
         }
         return flag;
+    }
+
+    @Override
+    public PageModel<CustomerApi> findAllByCustomerId(Map<String, Object> map) {
+        PageModel<CustomerApi> pageModel = new PageModel<CustomerApi>();
+        pageModel.setList(customerApiMapper.findAllByCustomerId(map));
+        pageModel.setRows(customerApiMapper.getAllCountByCustomerId(map));
+        return pageModel;
+    }
+
+    @Override
+    public boolean updateCustomerApiById(CustomerApi api) {
+        return customerApiMapper.updateCustomerApiById(api);
+    }
+
+    @Override
+    public CustomerApi findById(Integer id) {
+        return customerApiMapper.findById(id);
     }
 }

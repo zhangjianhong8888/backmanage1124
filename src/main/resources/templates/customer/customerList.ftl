@@ -184,7 +184,8 @@
                             </div>
 
                         </div>
-
+                        <!-- Three -->
+                        <@shiro.hasRole name="threeAdmin">
                         <div class="portlet-body no-more-tables">
 
                             <table class="table-bordered table-striped table-condensed cf">
@@ -204,9 +205,9 @@
                                 <tr>
                                     <td>${customer.name}</td>
                                     <td>${customer.authId}</td>
-                                    <td class="numeric">${customer.typeId}</td>
+                                    <td class="numeric">${customer.customerType.name}</td>
                                     <td class="numeric">${customer.balance}</td>
-                                    <td class="numeric">${customer.status}</td>
+                                    <td class="numeric">${customer.customerStatus.name}</td>
                                     <td class="numeric">${customer.createTime}</td>
                                     <td class="numeric">
                                         <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
@@ -232,12 +233,12 @@
                                     <div class="dataTables_paginate paging_bootstrap pagination">
                                         <ul>
                                             <#if (lineSize>1)>
-                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=1"><span class="hidden-480">首页</span></a></li>
-                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=1"><span class="hidden-480">首页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
                                             </#if>
                                             <#if (lineSize<totlePage)>
-                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
-                                            <li class="next"><a href="/customer/findCustomerByAdminId?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
                                             </#if>
                                         </ul>
                                     </div>
@@ -246,7 +247,141 @@
                             </div>
 
                         </div>
+                        </@shiro.hasRole>
 
+                        <!-- Two -->
+                        <@shiro.hasRole name="twoAdmin">
+                            <div class="portlet-body no-more-tables">
+
+                                <table class="table-bordered table-striped table-condensed cf">
+                                    <thead class="cf">
+                                    <tr>
+                                        <th>公司名称</th>
+                                        <th>账户</th>
+                                        <th class="numeric">账号类型</th>
+                                        <th class="numeric">余额</th>
+                                        <th class="numeric">状态</th>
+                                        <th class="numeric">推荐人</th>
+                                        <th class="numeric">创建时间</th>
+                                        <th class="numeric">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <#list customerList as customer>
+                                        <tr>
+                                            <td>${customer.name}</td>
+                                            <td>${customer.authId}</td>
+                                            <td class="numeric">${customer.customerType.name}</td>
+                                            <td class="numeric">${customer.balance}</td>
+                                            <td class="numeric">${customer.customerStatus.name}</td>
+                                            <td class="numeric">${customer.admin.name}</td>
+                                            <td class="numeric">${customer.createTime}</td>
+                                            <td class="numeric">
+                                                <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
+                                                <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
+                                                <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
+                                                <a href="">管理Api</a>
+                                            </td>
+                                        </tr>
+                                        </#list>
+                                    </tbody>
+
+                                </table>
+
+                                <div class="row-fluid">
+
+                                    <div class="span6">
+
+                                        <div class="dataTables_info" id="sample_1_info">当前显示第 ${lineSize} 页 共 ${totlePage} 页</div>
+                                    </div>
+
+                                    <#if (totlePage>1)>
+                                        <div class="span6">
+                                            <div class="dataTables_paginate paging_bootstrap pagination">
+                                                <ul>
+                                                    <#if (lineSize>1)>
+                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=1"><span class="hidden-480">首页</span></a></li>
+                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
+                                                    </#if>
+                                                    <#if (lineSize<totlePage)>
+                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
+                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
+                                                    </#if>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </#if>
+                                </div>
+
+                            </div>
+                        </@shiro.hasRole>
+
+                        <!-- One -->
+                        <@shiro.hasRole name="oneAdmin">
+                            <div class="portlet-body no-more-tables">
+
+                                <table class="table-bordered table-striped table-condensed cf">
+                                    <thead class="cf">
+                                    <tr>
+                                        <th>公司名称</th>
+                                        <th>账户</th>
+                                        <th class="numeric">账号类型</th>
+                                        <th class="numeric">余额</th>
+                                        <th class="numeric">状态</th>
+                                        <th class="numeric">推荐人</th>
+                                        <th class="numeric">创建时间</th>
+                                        <th class="numeric">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <#list customerList as customer>
+                                        <tr>
+                                            <td>${customer.name}</td>
+                                            <td>${customer.authId}</td>
+                                            <td class="numeric">${customer.customerType.name}</td>
+                                            <td class="numeric">${customer.balance}</td>
+                                            <td class="numeric">${customer.customerStatus.name}</td>
+                                            <td class="numeric">${customer.admin.name}</td>
+                                            <td class="numeric">${customer.createTime}</td>
+                                            <td class="numeric">
+                                                <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
+                                                <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
+                                                <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
+                                                <a href="">管理Api</a>
+                                            </td>
+                                        </tr>
+                                        </#list>
+                                    </tbody>
+
+                                </table>
+
+                                <div class="row-fluid">
+
+                                    <div class="span6">
+
+                                        <div class="dataTables_info" id="sample_1_info">当前显示第 ${lineSize} 页 共 ${totlePage} 页</div>
+                                    </div>
+
+                                    <#if (totlePage>1)>
+                                        <div class="span6">
+                                            <div class="dataTables_paginate paging_bootstrap pagination">
+                                                <ul>
+                                                    <#if (lineSize>1)>
+                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=1"><span class="hidden-480">首页</span></a></li>
+                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
+                                                    </#if>
+                                                    <#if (lineSize<totlePage)>
+                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
+                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
+                                                    </#if>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </#if>
+                                </div>
+
+                            </div>
+                        </@shiro.hasRole>
                     </div>
 
                 </div>

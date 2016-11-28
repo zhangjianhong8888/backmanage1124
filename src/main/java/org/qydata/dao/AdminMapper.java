@@ -28,4 +28,6 @@ public interface AdminMapper{
      * @return
      */
     public Set<String> findAllActionByAdmin(String loginName) ;
+
+
 }

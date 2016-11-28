@@ -190,19 +190,19 @@
                             <table class="table-bordered table-striped table-condensed cf">
                                 <thead class="cf">
                                 <tr>
-                                    <th>起始段</th>
-                                    <th>结束段</th>
+                                    <th>供应商</th>
+                                    <th>价格</th>
+                                    <th class="numeric">状态</th>
                                     <th class="numeric">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <#list customerIpList as customerIp>
+                                <#list customerApiList as customerApi>
                                 <tr>
-                                    <td>${customerIp.beginIpRaw}</td>
-                                    <td>${customerIp.endIpRaw}</td>
-                                    <td class="numeric">
-                                        <a href="/customer/deleteIp/${customerIp.id}/${customerIp.customerId}">删除</a>
-                                    </td>
+                                    <td>${customerApi.api.name}</td>
+                                    <td>${customerApi.price}</td>
+                                    <td>${customerApi.enabled}</td>
+                                    <td><a href="/customer/findCustomerApiById/${customerApi.id}">修改</a></td>
                                 </tr>
                                 </#list>
                                 </tbody>
@@ -221,12 +221,12 @@
                                     <div class="dataTables_paginate paging_bootstrap pagination">
                                         <ul>
                                             <#if (lineSize>1)>
-                                            <li class="next"><a href="/customer/customerIpListAction/${customerId}?lineSize=1"><span class="hidden-480">首页</span></a></li>
-                                            <li class="next"><a href="/customer/customerIpListAction/${customerId}?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerApiList/${customerId}?lineSize=1"><span class="hidden-480">首页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerApiList/${customerId}?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
                                             </#if>
                                             <#if (lineSize<totlePage)>
-                                            <li class="next"><a href="/customer/customerIpListAction/${customerId}?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
-                                            <li class="next"><a href="/customer/customerIpListAction/${customerId}?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerApiList/${customerId}?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
+                                            <li class="next"><a href="/customer/findAllCustomerApiList/${customerId}?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
                                             </#if>
                                         </ul>
                                     </div>

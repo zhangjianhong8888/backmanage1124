@@ -17,6 +17,9 @@ public class Customer implements Serializable{
     private Timestamp createTime;
     private Timestamp timestamp;
     private Integer status;
+    private CustomerType customerType;
+    private CustomerStatus customerStatus;
+    private Admin admin;
     public Customer(){}
 
     public Integer getId() {
@@ -89,5 +92,47 @@ public class Customer implements Serializable{
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public CustomerType getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(CustomerType customerType) {
+        this.customerType = customerType;
+    }
+
+    public CustomerStatus getCustomerStatus() {
+        return customerStatus;
+    }
+
+    public void setCustomerStatus(CustomerStatus customerStatus) {
+        this.customerStatus = customerStatus;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", typeId=" + typeId +
+                ", name='" + name + '\'' +
+                ", authId='" + authId + '\'' +
+                ", authPass='" + authPass + '\'' +
+                ", balance=" + balance +
+                ", createTime=" + createTime +
+                ", timestamp=" + timestamp +
+                ", status=" + status +
+                ", customerType=" + customerType +
+                ", customerStatus=" + customerStatus +
+                ", admin=" + admin +
+                '}';
     }
 }

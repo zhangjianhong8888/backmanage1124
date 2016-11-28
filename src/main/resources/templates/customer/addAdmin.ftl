@@ -1,3 +1,4 @@
+
 <#include "layout.ftl">
 
 <@layout ; section>
@@ -6,6 +7,8 @@
     <#elseif section = "content" >
 
     <div class="page-content">
+
+        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
         <div id="portlet-config" class="modal hide">
 
@@ -25,7 +28,13 @@
 
         </div>
 
+        <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+
+        <!-- BEGIN PAGE CONTAINER-->
+
         <div class="container-fluid">
+
+            <!-- BEGIN PAGE HEADER-->
 
             <div class="row-fluid">
 
@@ -121,11 +130,11 @@
 
                     <!-- END BEGIN STYLE CUSTOMIZER -->
 
-                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-
                     <h3 class="page-title">
 
-                        Responsive Tables <small>responsive table samples</small>
+                        Form Layouts
+
+                        <small>form layouts and more</small>
 
                     </h3>
 
@@ -137,49 +146,45 @@
 
                             <a href="index.html">Home</a>
 
-                            <i class="icon-angle-right"></i>
+                            <span class="icon-angle-right"></span>
 
                         </li>
 
                         <li>
 
-                            <a href="#">Data Tables</a>
+                            <a href="#">Form Stuff</a>
 
-                            <i class="icon-angle-right"></i>
+                            <span class="icon-angle-right"></span>
 
                         </li>
 
-                        <li><a href="#">Responsive Tables</a></li>
+                        <li><a href="#">Form Layouts</a></li>
 
                     </ul>
-
-                    <!-- END PAGE TITLE & BREADCRUMB-->
 
                 </div>
 
             </div>
 
+            <!-- END PAGE HEADER-->
+
+            <!-- BEGIN PAGE CONTENT-->
+
             <div class="row-fluid">
 
                 <div class="span12">
 
-                    <!-- BEGIN VALIDATION STATES-->
+                    <!-- BEGIN SAMPLE FORM PORTLET-->
 
-                    <div class="portlet box purple">
+                    <div class="portlet box blue tabbable">
 
                         <div class="portlet-title">
 
-                            <div class="caption"><i class="icon-reorder"></i>Basic Validation</div>
+                            <div class="caption">
 
-                            <div class="tools">
+                                <i class="icon-reorder"></i>
 
-                                <a href="javascript:;" class="collapse"></a>
-
-                                <a href="#portlet-config" data-toggle="modal" class="config"></a>
-
-                                <a href="javascript:;" class="reload"></a>
-
-                                <a href="javascript:;" class="remove"></a>
+                                <span class="hidden-480">General Layouts</span>
 
                             </div>
 
@@ -187,165 +192,180 @@
 
                         <div class="portlet-body form">
 
-                            <!-- BEGIN FORM-->
+                            <div class="tabbable portlet-tabs">
 
-                            <form action="#" id="form_sample_1" class="form-horizontal">
+                                <ul class="nav nav-tabs">
 
-                                <div class="alert alert-error hide">
+                                    <li><a href="#" data-toggle="tab">Inline</a></li>
 
-                                    <button class="close" data-dismiss="alert"></button>
+                                    <li><a href="#" data-toggle="tab">Grid</a></li>
 
-                                    You have some form errors. Please check below.
+                                    <li class="active"><a href="javaScript:;" onclick="addCustomerApi()" data-toggle="tab">Default</a></li>
 
-                                </div>
+                                </ul>
 
-                                <div class="alert alert-success hide">
+                                <div class="tab-content">
 
-                                    <button class="close" data-dismiss="alert"></button>
+                                    <div class="tab-pane active" id="portlet_tab1">
 
-                                    Your form validation is successful!
+                                        <!-- BEGIN FORM-->
 
-                                </div>
+                                        <form action="#" class="form-horizontal" method="post">
 
-                                <div class="control-group">
+                                            <div id="cloneAddCustomerApi">
 
-                                    <label class="control-label">Name<span class="required">*</span></label>
+                                                <div id="addCustomerApi">
 
-                                    <div class="controls">
+                                                    <div class="control-group">
 
-                                        <input type="text" name="name" data-required="1" class="span6 m-wrap"/>
+                                                        <label class="control-label">姓名</label>
+
+                                                        <div class="controls">
+
+                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+
+                                                            <span id="priceMsg" class="help-inline"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="control-group">
+
+                                                        <label class="control-label">登录名</label>
+
+                                                        <div class="controls">
+
+                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+
+                                                            <span id="priceMsg" class="help-inline"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="control-group">
+
+                                                        <label class="control-label">密码</label>
+
+                                                        <div class="controls">
+
+                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+
+                                                            <span id="priceMsg" class="help-inline"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="control-group">
+
+                                                        <label class="control-label">电话</label>
+
+                                                        <div class="controls">
+
+                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+
+                                                            <span id="priceMsg" class="help-inline"></span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="control-group">
+
+                                                        <label class="control-label">部门</label>
+
+                                                        <div class="controls">
+
+                                                            <select id="apiId" name="apiId" class="medium m-wrap" tabindex="1">
+
+                                                                <#list apiList as api>
+
+                                                                    <option value="${api.id}">${api.name}</option>
+
+                                                                </#list>
+
+                                                            </select>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="control-group">
+
+                                                        <label class="control-label">等级</label>
+
+                                                        <div class="controls">
+
+                                                            <select id="apiId" name="apiId" class="medium m-wrap" tabindex="1">
+
+                                                                <#list apiList as api>
+
+                                                                    <option value="${api.id}">${api.name}</option>
+
+                                                                </#list>
+
+                                                            </select>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="control-group">
+
+                                                        <label class="control-label">是否启用</label>
+
+                                                        <div class="controls">
+
+                                                            <select id="enabled" name="enabled" class="medium m-wrap" tabindex="1">
+
+                                                                <option value="1">是</option>
+
+                                                                <option value="0">否</option>
+
+                                                            </select>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>
+                                                <button type="button" class="btn">Cancel</button>
+                                            </div>
+
+                                        </form>
+
+                                        <!-- END FORM-->
 
                                     </div>
 
                                 </div>
 
-                                <div class="control-group">
-
-                                    <label class="control-label">Email<span class="required">*</span></label>
-
-                                    <div class="controls">
-
-                                        <input name="email" type="text" class="span6 m-wrap"/>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label">URL<span class="required">*</span></label>
-
-                                    <div class="controls">
-
-                                        <input name="url" type="text" class="span6 m-wrap"/>
-
-                                        <span class="help-block">e.g: http://www.demo.com or http://demo.com</span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label">Number<span class="required">*</span></label>
-
-                                    <div class="controls">
-
-                                        <input name="number" type="text" class="span6 m-wrap"/>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label">Digits<span class="required">*</span></label>
-
-                                    <div class="controls">
-
-                                        <input name="digits" type="text" class="span6 m-wrap"/>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label">Credit Card<span class="required">*</span></label>
-
-                                    <div class="controls">
-
-                                        <input name="creditcard" type="text" class="span6 m-wrap"/>
-
-                                        <span class="help-block">e.g: 5500 0000 0000 0004</span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label">Occupation&nbsp;&nbsp;</label>
-
-                                    <div class="controls">
-
-                                        <input name="occupation" type="text" class="span6 m-wrap"/>
-
-                                        <span class="help-block">optional field</span>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="control-group">
-
-                                    <label class="control-label">Category<span class="required">*</span></label>
-
-                                    <div class="controls">
-
-                                        <select class="span6 m-wrap" name="category">
-
-                                            <option value="">Select...</option>
-
-                                            <option value="Category 1">Category 1</option>
-
-                                            <option value="Category 2">Category 2</option>
-
-                                            <option value="Category 3">Category 5</option>
-
-                                            <option value="Category 4">Category 4</option>
-
-                                        </select>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="form-actions">
-
-                                    <button type="submit" class="btn purple">Validate</button>
-
-                                    <button type="button" class="btn">Cancel</button>
-
-                                </div>
-
-                            </form>
-
-                            <!-- END FORM-->
+                            </div>
 
                         </div>
 
                     </div>
 
-                    <!-- END VALIDATION STATES-->
+                    <!-- END SAMPLE FORM PORTLET-->
 
                 </div>
 
             </div>
 
+            <!-- END PAGE CONTENT-->
+
         </div>
 
+        <!-- END PAGE CONTAINER-->
+
     </div>
+
 
     <#elseif section = "footer">
 

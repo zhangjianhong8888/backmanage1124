@@ -6,6 +6,7 @@ import org.qydata.entity.CustomerBalanceModifyReason;
 import org.qydata.entity.CustomerIp;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jonhn on 2016/11/8.
@@ -34,18 +35,16 @@ public interface CustomerMapper {
 
     /**
      * 查询当前登录着可见的客户信息并分页显示
-     * @param page 当前页第一条数据在表中的位置
-     * @param rows 每页显示的记录数
-     * @param adminId 当前登录者 Id
+     * @param map 包含了筛选条件数据
      * @return 如果有数据，则以List集合的形式返回，如果没有返回空（size==0）
      */
-    public List<Customer> findCustomerByAdminId(Integer page,Integer rows,Integer adminId);
+    public List<Customer> findAllCustomer(Map<String,Object> map);
     /**
      * 获取总的数据量
-     * @param adminId 当前登录者 Id
+     * @param map 包含了筛选条件数据
      * @return
      */
-    public Integer getAllCountByAdminId(Integer adminId);
+    public Integer getAllCount(Map<String,Object> map);
 
     /**
      * 插入Ip
@@ -62,19 +61,17 @@ public interface CustomerMapper {
 
     /**
      * 查询客户Ip
-     * @param page 当前页第一条数据在表中的位置
-     * @param rows 每页显示记录数
-     * @param customerId 客户Id
+     * @param map
      * @return
      */
-    public List<CustomerIp> findAllIpByCustomerId(Integer page,Integer rows,Integer customerId);
+    public List<CustomerIp> findAllIpByCustomerId(Map<String,Object> map);
 
     /**
      * 根据客户Id获取总数据量
-     * @param customerId
+     * @param map
      * @return
      */
-    public Integer getAllCountByCustomerId(Integer customerId);
+    public Integer getAllCountByCustomerId(Map<String,Object> map);
 
     /**
      * 根据Id删除Ip
@@ -82,6 +79,13 @@ public interface CustomerMapper {
      * @return
      */
     public boolean deleteIpById(Integer id);
+
+    /**
+     * 根据账户修改余额
+     * @param map
+     * @return
+     */
+    public boolean updateBalanceByAuthId(Map<String,Object> map);
 
 
 

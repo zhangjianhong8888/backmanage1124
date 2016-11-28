@@ -32,7 +32,7 @@ public interface CustomerService {
      * @map 包含了要使用的数据
      * @return 如果有数据，则以List集合的形式返回，如果没有返回空（size==0）
      */
-    public PageModel<Customer> findCustomerByAdminId(Map<String,Object> map);
+    public PageModel<Customer> findAllCustomer(Map<String,Object> map);
 
     /**
      * 插入Ip
@@ -60,6 +60,12 @@ public interface CustomerService {
      * @return
      */
     public boolean deleteIpById(Integer id);
+    /**
+     * 根据账户修改余额
+     * @param map
+     * @return
+     */
+    public boolean updateBalanceByAuthId(Map<String,Object> map);
 
 
 //    /**

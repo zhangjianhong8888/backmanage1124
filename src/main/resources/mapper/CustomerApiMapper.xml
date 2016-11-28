@@ -3,6 +3,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.qydata.dao.CustomerApiMapper">
 
+    <resultMap type="CustomerApi" id="CustomerApi_Api">
+        <result column="id" property="id"/>
+        <result column="apiId" property="apiId"/>
+        <result column="customerId" property="customerId"/>
+        <result column="price" property="price"/>
+        <result column="enabled" property="enabled"/>
+        <association property="api" javaType="Api">
+            <id column="name" property="name"/>
+        </association>
+    </resultMap>
     <!--查询所有供应商Api-->
     <select id="findAllApi" resultType="Api">
       select id,name
@@ -13,4 +23,25 @@
         insert into qydata.CustomerApi(apiId,customerId,price,enabled,createTime)
         values(#{apiId},#{customerId},#{price},#{enabled},sysdate())
     </insert>
+    <!--根据客户Id查找指定客户的所有CustomerApi-->
+    <select id="findAllByCustomerId" parameterType="java.util.Map" resultMap="CustomerApi_Api">
+        select c.id,c.apiId,c.customerId,c.price,c.enabled,a.name
+        from qydata.CustomerApi c,qydataApi a
+        where c.apiId=a.id and c.customerId=#{customerId}
+        limit #{beginIndex},#{line}
+    </select>
+    <!--根据客户Id统计全部数据量-->
+    <select id="getAllCountByCustomerId" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(id) from qydata.CustomerApi where #{customerId}
+    </select>
+    <!--根据Id修改-->
+    <update id="updateCustomerApiById" parameterType="CustomerApi">
+        update from qydata.CustomerApi set apiId=#{apiId},price=#{price},enabled=#{enabled} where id=#{id}
+    </update>
+    <!--根据Id查找-->
+    <select id="findById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select id,apiId,customerId,price,enabled
+        from qydata.CustomerApi
+        where id=#{id}
+    </select>
 </mapper>

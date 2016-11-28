@@ -539,430 +539,76 @@
 
                 </li>
 
-                <li class="">
-                    <a href="javascript:;">
-                        <i class="icon-cogs"></i>
-                        <span class="title">客户管理</span>
-                        <span class="arrow "></span>
+                <li class="start ">
+                    <a href="/customer/addCustomer">
+                        <i class="icon-home"></i>
+                        <span class="title">新增客户</span>
                     </a>
-                    <ul class="sub-menu">
-                        <li ><a href="/customer/addCustomer">新增客户</a></li>
-                        <li ><a href="/customer/findCustomerByAdminId">查看客户信息</a></li>
-                        <li ><a href="/customer/addCustomerBalanceLogAction">余额变更</a></li>
-                    </ul>
+                </li>
+
+                <@shiro.hasRole name="threeAdmin">
+                <li class="start ">
+                    <a href="/customer/findAllCustomerThree">
+                        <i class="icon-home"></i>
+                        <span class="title">查看客户信息</span>
+                    </a>
+                </li>
+                </@shiro.hasRole>
+
+                <@shiro.hasRole name="twoAdmin">
+                    <li class="start ">
+                        <a href="/customer/findAllCustomerTwo">
+                            <i class="icon-home"></i>
+                            <span class="title">查看客户信息</span>
+                        </a>
+                    </li>
+                </@shiro.hasRole>
+
+                <@shiro.hasRole name="oneAdmin">
+                    <li class="start ">
+                        <a href="/customer/findAllCustomerOne">
+                            <i class="icon-home"></i>
+                            <span class="title">查看客户信息</span>
+                        </a>
+                    </li>
+                </@shiro.hasRole>
+
+                <li class="start ">
+                    <a href="/customer/addCustomerBalanceLogAction">
+                        <i class="icon-home"></i>
+                        <span class="title">余额变更</span>
+                    </a>
+                </li>
+
+                <@shiro.hasRole name="oneAdmin">
+                <li class="start ">
+                    <a href="#">
+                        <i class="icon-home"></i>
+                        <span class="title">新增管理员</span>
+                    </a>
                 </li>
 
                 <li class="start ">
-
-                    <a href="index.html">
-
+                    <a href="#">
                         <i class="icon-home"></i>
-
-                        <span class="title">客户列表</span>
-
+                        <span class="title">查看管理员信息</span>
                     </a>
-
                 </li>
+                </@shiro.hasRole>
 
-                <li class="">
 
+                <#--<li class="">
                     <a href="javascript:;">
-
-                        <i class="icon-bookmark-empty"></i>
-
-                        <span class="title">修改客户</span>
-
+                        <i class="icon-cogs"></i>
+                        <span class="title">管理员</span>
                         <span class="arrow "></span>
-
                     </a>
-
                     <ul class="sub-menu">
-
-                        <li >
-
-                            <a href="ui_general.html">
-
-                                修改客户1</a>
-
-                        </li>
-                        <li >
-
-                            <a href="ui_general.html">
-
-                                修改客户2</a>
-
-                        </li>
-
+                        <li ><a href="#">新增管理员</a></li>
+                        <li ><a href="#">查看管理员信息</a></li>
+                        <li ><a href="#"></a></li>
                     </ul>
-
-
-                </li>
-
-                <li class="">
-
-                    <a href="javascript:;">
-
-                        <i class="icon-table"></i>
-
-                        <span class="title">删除客户</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li >
-
-                            <a href="form_layout.html">
-
-                                删除客户1</a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li class="">
-
-                    <a href="javascript:;">
-
-                        <i class="icon-briefcase"></i>
-
-                        <span class="title">部门管理</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li >
-
-                            <a href="page_timeline.html">
-
-                                <i class="icon-time"></i>
-
-                                部门管理1</a>
-
-                        </li>
-
-                        <li >
-
-                            <a href="page_contact.html">
-
-                                <i class="icon-envelope-alt"></i>
-
-                                Contact Us</a>
-
-                        </li>
-
-                        <li >
-
-                            <a href="page_calendar.html">
-
-                                <i class="icon-calendar"></i>
-
-                                Calendar</a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li class="">
-
-                    <a href="javascript:;">
-
-                        <i class="icon-gift"></i>
-
-                        <span class="title">雇员管理</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li >
-
-                            <a href="extra_profile.html">
-
-                                雇员管理1</a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li>
-
-                    <a class="active" href="javascript:;">
-
-                        <i class="icon-sitemap"></i>
-
-                        <span class="title">订单管理</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li>
-
-                            <a href="javascript:;">
-
-                                订单管理1
-
-                                <span class="arrow"></span>
-
-                            </a>
-
-                            <ul class="sub-menu">
-
-                                <li><a href="#">订单管理11</a></li>
-
-                                <li><a href="#">订单管理12</a></li>
-
-                                <li><a href="#">订单管理13</a></li>
-
-                            </ul>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                订单管理3
-
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li>
-
-                    <a href="javascript:;">
-
-                        <i class="icon-folder-open"></i>
-
-                        <span class="title">投诉管理1</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li>
-
-                            <a href="javascript:;">
-
-                                <i class="icon-cogs"></i>
-
-                                投诉管理1
-
-                                <span class="arrow"></span>
-
-                            </a>
-
-                            <ul class="sub-menu">
-
-                                <li>
-
-                                    <a href="javascript:;">
-
-                                        <i class="icon-user"></i>
-
-                                        投诉管理1
-
-                                        <span class="arrow"></span>
-
-                                    </a>
-
-                                    <ul class="sub-menu">
-
-                                        <li><a href="#"><i class="icon-remove"></i> 投诉管理1</a></li>
-
-                                        <li><a href="#"><i class="icon-pencil"></i> 投诉管理1</a></li>
-
-                                        <li><a href="#"><i class="icon-edit"></i> 投诉管理1</a></li>
-
-                                    </ul>
-
-                                </li>
-
-                                <li><a href="#"><i class="icon-user"></i>投诉管理1</a></li>
-
-                                <li><a href="#"><i class="icon-external-link"></i> 投诉管理1</a></li>
-
-                                <li><a href="#"><i class="icon-bell"></i>投诉管理1</a></li>
-
-                            </ul>
-
-                        </li>
-
-                        <li>
-
-                            <a href="javascript:;">
-
-                                <i class="icon-globe"></i>
-
-                                投诉管理1
-
-                                <span class="arrow"></span>
-
-                            </a>
-
-                            <ul class="sub-menu">
-
-                                <li><a href="#"><i class="icon-user"></i>投诉管理1</a></li>
-
-                                <li><a href="#"><i class="icon-external-link"></i>投诉管理1</a></li>
-
-                                <li><a href="#"><i class="icon-bell"></i>投诉管理1</a></li>
-
-                            </ul>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-
-                                <i class="icon-folder-open"></i>
-
-                                投诉管理1
-
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li class="">
-
-                    <a href="javascript:;">
-
-                        <i class="icon-user"></i>
-
-                        <span class="title">投诉管理2</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li >
-
-                            <a href="login.html">
-
-                                投诉管理</a>
-
-                        </li>
-
-                        <li >
-
-                            <a href="login_soft.html">
-
-                                投诉管理</a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li class="">
-
-                    <a href="javascript:;">
-
-                        <i class="icon-file-text"></i>
-
-                        <span class="title">投诉管理4</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li >
-
-                            <a href="portlet_general.html">
-
-                                投诉管理</a>
-
-                        </li>
-
-                        <li >
-
-                            <a href="portlet_draggable.html">
-
-                                投诉管理</a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li class="">
-
-                    <a href="javascript:;">
-
-                        <i class="icon-map-marker"></i>
-
-                        <span class="title">投诉管理5</span>
-
-                        <span class="arrow "></span>
-
-                    </a>
-
-                    <ul class="sub-menu">
-
-                        <li >
-
-                            <a href="maps_google.html">
-
-                                投诉管理</a>
-
-                        </li>
-
-                        <li >
-
-                            <a href="maps_vector.html">
-
-                                投诉管理</a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li class="last ">
-
-                    <a href="charts.html">
-
-                        <i class="icon-bar-chart"></i>
-
-                        <span class="title">投诉管理6</span>
-
-                    </a>
-
-                </li>
+                </li>-->
 
             </ul>
 
@@ -1044,7 +690,7 @@
         });
 
         $("#authIdAdd").blur(function(){
-            $("#authIdAddMsg").load("/customer/findCustomerByAuthIdAdd/"+$("#authIdAdd").val(),
+            $("#authIdAddMsg").load("/customer/findCustomerByAuthId/"+$("#authIdAdd").val(),
                     function(responseTxt){
                         if(responseTxt=="yes")
                             $("#authIdAddMsg").html("该账户已存在！");
