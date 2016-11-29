@@ -18,12 +18,18 @@ public class CustomerBalanceLogServiceImpl implements CustomerBalanceLogService{
     @Autowired
     private CustomerMapper customerMapper;
     @Override
-    public boolean insertcustomerBalanceLog(String authId, String amount,String reasonId) {
+    public boolean changeCustomerBalanceLog(String authId, String amount,String reasonId)throws Exception {
        Customer customer = customerMapper.findByAuthId(authId);
-       CustomerBalanceLog customerBalanceLog = new CustomerBalanceLog();
-        customerBalanceLog.setCustomerId(customer.getId());
-        customerBalanceLog.setAmount(Long.getLong(amount));
-        customerBalanceLog.setReasonId(Integer.parseInt(reasonId));
-        return customerBalanceLogMapper.insertcustomerBalanceLog(customerBalanceLog);
+        Long balance = customerMapper.findBalanceByAuthId(authId);
+        Long totle =Long.parseLong(amount)+balance;
+        boolean flag = customerMapper.updateBalanceByAuthId(totle,authId);
+        if(flag) {
+            CustomerBalanceLog customerBalanceLog = new CustomerBalanceLog();
+            customerBalanceLog.setCustomerId(customer.getId());
+            customerBalanceLog.setAmount(Long.parseLong(amount));
+            customerBalanceLog.setReasonId(Integer.parseInt(reasonId));
+            return customerBalanceLogMapper.insertcustomerBalanceLog(customerBalanceLog);
+        }
+       return false;
     }
 }

@@ -200,9 +200,7 @@
 
                                     <li><a href="#portlet_tab2" data-toggle="tab">Grid</a></li>
 
-                                    <li class="active"><a href="#portlet_tab1" data-toggle="tab">Default</a></li>
-
-                                    <li class="active"><a href="javaScript:;" onclick="add()" data-toggle="tab">添加</a></li>
+                                    <li class="active"><a href="javaScript:;" onclick="add()" data-toggle="tab">Default</a></li>
 
                                 </ul>
 
@@ -212,21 +210,30 @@
 
                                         <!-- BEGIN FORM-->
 
-                                        <form action="/customer/insertCustomerIp" class="form-horizontal" method="post">
+                                        <form action="/customer/insertCustomerIp" class="form-horizontal" method="post" onsubmit="return validateCustomerIp()">
 
                                             <div class="control-group">
 
-                                                <label class="control-label"></label>
+                                                <div class="controls">
+                                                    <#if msg??>
+                                                        <span><h5><font color="red">${msg}</font></h5></span>
+                                                    <#else>
+                                                        <span></span>
+                                                    </#if>
+                                                </div>
+
+                                                <label class="control-label">请输入Ip段</label>
+
                                                 <div class="controls" id="cloneAddDiv">
                                                     <input type="hidden" id="customerId" name="customerId" value="${id}" class="m-wrap medium" />
 
                                                     <div id="addDiv">
                                                     <input type="text" id="beginIp" name="beginIp" placeholder="例如：192.168.111.12" class="m-wrap medium" />
+                                                        <span class="help-inline" id="beginIpMsg"></span>
                                                     ---
                                                     <input type="text" id="endIp" name="endIp" placeholder="例如：192.168.111.12" class="m-wrap medium" />
-                                                        <span class="help-inline"></span>
+                                                        <span class="help-inline" id="endIpMsg"></span>
                                                     </div>
-
 
                                                 </div>
                                             </div>
@@ -265,6 +272,6 @@
 
 
     <#elseif section = "footer">
-
+    <script src="/js/myjs/customerIp.js" type="text/javascript" ></script>
     </#if>
 </@layout>

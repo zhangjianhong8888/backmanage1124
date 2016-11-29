@@ -25,21 +25,22 @@
     </insert>
     <!--根据客户Id查找指定客户的所有CustomerApi-->
     <select id="findAllByCustomerId" parameterType="java.util.Map" resultMap="CustomerApi_Api">
-        select c.id,c.apiId,c.customerId,c.price,c.enabled,a.name
-        from qydata.CustomerApi c,qydataApi a
+        select c.id,c.apiId,c.customerId,c.price,c.enabled,c.createTime,a.name
+        from qydata.CustomerApi c,qydata.Api a
         where c.apiId=a.id and c.customerId=#{customerId}
+        order by c.createTime desc
         limit #{beginIndex},#{line}
     </select>
     <!--根据客户Id统计全部数据量-->
     <select id="getAllCountByCustomerId" parameterType="java.util.Map" resultType="java.lang.Integer">
-        select count(id) from qydata.CustomerApi where #{customerId}
+        select count(id) from qydata.CustomerApi where customerId=#{customerId}
     </select>
     <!--根据Id修改-->
     <update id="updateCustomerApiById" parameterType="CustomerApi">
-        update from qydata.CustomerApi set apiId=#{apiId},price=#{price},enabled=#{enabled} where id=#{id}
+        update qydata.CustomerApi set apiId=#{apiId},price=#{price},enabled=#{enabled} where id=#{id}
     </update>
     <!--根据Id查找-->
-    <select id="findById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    <select id="findById" parameterType="java.lang.Integer" resultType="CustomerApi">
         select id,apiId,customerId,price,enabled
         from qydata.CustomerApi
         where id=#{id}

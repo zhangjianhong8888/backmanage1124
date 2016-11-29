@@ -201,7 +201,12 @@
                                 <tr>
                                     <td>${customerApi.api.name}</td>
                                     <td>${customerApi.price}</td>
-                                    <td>${customerApi.enabled}</td>
+                                    <#if customerApi.enabled>
+                                    <td>已激活</td>
+                                    </#if>
+                                    <#if !customerApi.enabled>
+                                        <td>未激活</td>
+                                    </#if >
                                     <td><a href="/customer/findCustomerApiById/${customerApi.id}">修改</a></td>
                                 </tr>
                                 </#list>

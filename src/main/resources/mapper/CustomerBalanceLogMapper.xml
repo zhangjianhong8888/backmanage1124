@@ -5,7 +5,7 @@
 
     <!--余额变动日志-->
     <insert id="insertcustomerBalanceLog" parameterType="CustomerBalanceLog" useGeneratedKeys="true" keyProperty="id">
-      insert into qydata.CustomerBalanceLog(reasonId,customerId,amount,createtime)
+      insert into qydata.CustomerBalanceLog(reasonId,customerId,amount,createTime)
       values(#{reasonId},#{customerId},#{amount},sysdate())
     </insert>
 </mapper>

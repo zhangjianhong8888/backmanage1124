@@ -11,5 +11,5 @@ public interface CustomerBalanceLogService {
      * @param reasonId
      * @return
      */
-    public boolean insertcustomerBalanceLog(String authId, String amount,String reasonId);
+    public boolean changeCustomerBalanceLog(String authId, String amount,String reasonId)throws Exception;
 }

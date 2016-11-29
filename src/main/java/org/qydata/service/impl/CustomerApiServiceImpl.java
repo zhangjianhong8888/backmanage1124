@@ -25,7 +25,7 @@ public class CustomerApiServiceImpl implements CustomerApiService{
     }
 
     @Override
-    public boolean insertCustomerApi(String price, String customerId, String apiId, String enabled) {
+    public boolean insertCustomerApi(String price, String customerId, String apiId, String enabled)throws Exception {
         CustomerApi customerApi = new CustomerApi();
         boolean flag = false;
         List<String> listPrice = ChangeIp.spiltIp(price);
@@ -36,7 +36,9 @@ public class CustomerApiServiceImpl implements CustomerApiService{
             customerApi.setPrice(Integer.parseInt(listPrice.get(i)));
             customerApi.setCustomerId(Integer.parseInt(listCustomerId.get(i)));
             customerApi.setApiId(Integer.parseInt(listApiId.get(i)));
-            customerApi.setEnabled(Long.getLong(listEnabled.get(i)));
+            customerApi.setEnabled(Boolean.parseBoolean(listEnabled.get(i)));
+            System.out.println(enabled);
+            System.out.println(Boolean.parseBoolean(listEnabled.get(i)));
             flag= customerApiMapper.insertCustomerApi(customerApi);
         }
         return flag;
@@ -51,7 +53,7 @@ public class CustomerApiServiceImpl implements CustomerApiService{
     }
 
     @Override
-    public boolean updateCustomerApiById(CustomerApi api) {
+    public boolean updateCustomerApiById(CustomerApi api)throws Exception {
         return customerApiMapper.updateCustomerApiById(api);
     }
 

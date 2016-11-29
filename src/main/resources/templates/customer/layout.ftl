@@ -540,7 +540,7 @@
                 </li>
 
                 <li class="start ">
-                    <a href="/customer/addCustomer">
+                    <a href="/customer/addCustomerAction">
                         <i class="icon-home"></i>
                         <span class="title">新增客户</span>
                     </a>
@@ -550,7 +550,7 @@
                 <li class="start ">
                     <a href="/customer/findAllCustomerThree">
                         <i class="icon-home"></i>
-                        <span class="title">查看客户信息</span>
+                        <span class="title">客户信息</span>
                     </a>
                 </li>
                 </@shiro.hasRole>
@@ -559,7 +559,7 @@
                     <li class="start ">
                         <a href="/customer/findAllCustomerTwo">
                             <i class="icon-home"></i>
-                            <span class="title">查看客户信息</span>
+                            <span class="title">客户信息</span>
                         </a>
                     </li>
                 </@shiro.hasRole>
@@ -568,13 +568,13 @@
                     <li class="start ">
                         <a href="/customer/findAllCustomerOne">
                             <i class="icon-home"></i>
-                            <span class="title">查看客户信息</span>
+                            <span class="title">客户信息</span>
                         </a>
                     </li>
                 </@shiro.hasRole>
 
                 <li class="start ">
-                    <a href="/customer/addCustomerBalanceLogAction">
+                    <a href="/customer/addCustomerBalanceLogView">
                         <i class="icon-home"></i>
                         <span class="title">余额变更</span>
                     </a>
@@ -591,7 +591,7 @@
                 <li class="start ">
                     <a href="#">
                         <i class="icon-home"></i>
-                        <span class="title">查看管理员信息</span>
+                        <span class="title">管理员信息</span>
                     </a>
                 </li>
                 </@shiro.hasRole>

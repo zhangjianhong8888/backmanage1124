@@ -13,7 +13,7 @@ public class CustomerApi implements Serializable {
     private Integer apiId;
     private Integer customerId;
     private Integer price;
-    private Long enabled;
+    private Boolean enabled;
     private Timestamp createTime;
     private Timestamp timestamp;
     private Api api;
@@ -51,11 +51,11 @@ public class CustomerApi implements Serializable {
         this.price = price;
     }
 
-    public Long getEnabled() {
+    public Boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Long enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 

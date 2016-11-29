@@ -1,6 +1,5 @@
 
 
-
 function isEmpty(elename){
     var obj = document.getElementById(elename);
     var msg = document.getElementById(elename+"Msg");
@@ -11,13 +10,14 @@ function isEmpty(elename){
         return false;
     }
 }
-function validateRegex(elename,regex){
+function isEmptyFocus(elename){
     var obj = document.getElementById(elename);
     var msg = document.getElementById(elename+"Msg");
-    if(regex.test(obj.value)){
+    if(obj.value!=""){
+        msg.innerHTML = "";
         return true;
     }else{
-        msg.innerHTML = "内容输入格式不正确";
+        msg.innerHTML = "";
         return false;
     }
 }
@@ -25,15 +25,23 @@ function validateRegex(elename,regex){
 window.onload = function(){
 
     document.getElementById("name").addEventListener("blur",validateName,false);
+    document.getElementById("name").addEventListener("focus",validateNameFocus,false);
     document.getElementById("authIdAdd").addEventListener("blur",validateAuthIdAdd,false);
+    document.getElementById("authIdAdd").addEventListener("focus",validateAuthIdAddFocus,false);
 }
 
 function validateName(){
     return isEmpty("name");
 }
+function validateNameFocus(){
+    return isEmptyFocus("name");
+}
 
 function validateAuthIdAdd(){
     return isEmpty("authIdAdd");
+}
+function validateAuthIdAddFocus(){
+    return isEmptyFocus("authIdAdd");
 }
 
 function validateCustomer(){

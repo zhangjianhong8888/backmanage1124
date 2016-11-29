@@ -24,13 +24,13 @@ public interface CustomerMapper {
      * @param vo 包含了要添加数据的Customer类对象
      * @return 插入成功返回true,否则返回false;
      */
-    public boolean insertCustomer(Customer vo);
+    public boolean insertCustomer(Customer vo)throws Exception;
     /**
      * 添加新客户--测试
      * @param vo 包含了要添加数据的Customer类对象
      * @return 插入成功返回true,否则返回false;
      */
-    public boolean insertCustomerTest(Customer vo);
+    public boolean insertCustomerTest(Customer vo)throws Exception;
 
 
     /**
@@ -51,7 +51,7 @@ public interface CustomerMapper {
      * @param customerIp
      * @return
      */
-    public boolean insertCustomerIp(CustomerIp customerIp);
+    public boolean insertCustomerIp(CustomerIp customerIp)throws Exception;
 
     /**
      * 查询全部的CustomerBalanceModifyReason
@@ -78,31 +78,39 @@ public interface CustomerMapper {
      * @param id
      * @return
      */
-    public boolean deleteIpById(Integer id);
+    public boolean deleteIpById(Integer id)throws Exception;
 
     /**
+     * 根据账户查询余额
+     * @param authId
+     * @return
+     */
+    public Long findBalanceByAuthId(String authId);
+    /**
      * 根据账户修改余额
+     * @param totle
+     * @param authId
+     * @return
+     */
+    public boolean updateBalanceByAuthId(Long totle,String authId)throws Exception;
+
+    /**
+     * 根据字段模糊搜索
      * @param map
      * @return
      */
-    public boolean updateBalanceByAuthId(Map<String,Object> map);
+    public List<Customer> findCustomerInfoByColumn(Map<String,Object> map);
+
+    /**
+     *根据字段模糊统计总数据量
+     * @param map
+     * @return
+     */
+    public Integer getAllCountByColumn(Map<String,Object> map);
 
 
 
-//
-//    /**
-//     * 根据Id修改客户信息
-//     * @param vo 包含了要修改数据的Customer类对象
-//     * @return 修改成功返回true,否则返回false;
-//     */
-//    public boolean updateCustomer(Customer vo);
-//
-//    /**
-//     * 根据Id删除客户信息
-//     * @param id 要删除客户的Id
-//     * @return 删除成功返回true,否则返回false;
-//     */
-//    public boolean deleteCustomer(Integer id);
+
 
 
 

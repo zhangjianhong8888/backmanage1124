@@ -165,7 +165,7 @@
 
                     <!-- BEGIN VALIDATION STATES-->
 
-                    <div class="portlet box purple">
+                    <div class="portlet box blue">
 
                         <div class="portlet-title">
 
@@ -189,7 +189,10 @@
 
                             <!-- BEGIN FORM-->
 
-                            <form action="/customer/insertCustomer" id="form_sample_1" class="form-horizontal" method="post" onsubmit="return validateCustomer()">
+                            <#--One-->
+                            <@shiro.hasRole name="oneAdmin">
+
+                            <form action="/customer/insertCustomerOne" id="form_sample_1" class="form-horizontal" method="post" onsubmit="return validateCustomer()">
 
                                 <div class="alert alert-error hide">
 
@@ -209,13 +212,21 @@
 
                                 <div class="control-group">
 
+                                    <div class="controls">
+                                    <#if msg??>
+                                        <span><h5><font color="red">${msg}</font></h5></span>
+                                    <#else>
+                                        <span></span>
+                                    </#if>
+                                    </div>
+
                                     <label class="control-label">公司名称<span class="required">*</span></label>
 
                                     <div class="controls">
 
-                                        <input type="text" id="name" name="name" data-required="1" class="span6 m-wrap"/>
+                                        <input type="text" id="name" name="name" class="span6 m-wrap"/>
 
-                                        <span class="help-block" id="nameMsg"></span>
+                                        <span id="nameMsg" class="help-block"></span>
 
                                     </div>
 
@@ -229,45 +240,155 @@
 
                                         <input type="text" id="authIdAdd" name="authId" class="span6 m-wrap"/>
 
-                                        <span class="help-block" id="authIdAddMsg"></span>
+                                        <span id="authIdAddMsg" class="help-block"></span>
 
                                     </div>
 
                                 </div>
 
-                            <#--    <div class="control-group">
-
-                                    <label class="control-label">Category<span class="required">*</span></label>
-
-                                    <div class="controls">
-
-                                        <select class="span6 m-wrap" name="category">
-
-                                            <option value="">Select...</option>
-
-                                            <option value="Category 1">Category 1</option>
-
-                                            <option value="Category 2">Category 2</option>
-
-                                            <option value="Category 3">Category 5</option>
-
-                                            <option value="Category 4">Category 4</option>
-
-                                        </select>
-
-                                    </div>
-
-                                </div>-->
-
                                 <div class="form-actions">
 
-                                    <button type="submit" class="btn purple">提交</button>
+                                    <button type="submit" class="btn blue">提交</button>
 
                                     <button type="reset" class="btn">重置</button>
 
                                 </div>
 
                             </form>
+
+                            </@shiro.hasRole>
+                            <#--Two-->
+                            <@shiro.hasRole name="twoAdmin">
+
+                                <form action="/customer/insertCustomerTwo" id="form_sample_1" class="form-horizontal" method="post" onsubmit="return validateCustomer()">
+
+                                    <div class="alert alert-error hide">
+
+                                        <button class="close" data-dismiss="alert"></button>
+
+                                        You have some form errors. Please check below.
+
+                                    </div>
+
+                                    <div class="alert alert-success hide">
+
+                                        <button class="close" data-dismiss="alert"></button>
+
+                                        Your form validation is successful!
+
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <#if msg??>
+                                                <span><h5><font color="red">${msg}</font></h5></span>
+                                            <#else>
+                                                <span></span>
+                                            </#if>
+                                        </div>
+                                        <label class="control-label">公司名称<span class="required">*</span></label>
+
+                                        <div class="controls">
+
+                                            <input type="text" id="name" name="name" class="span6 m-wrap"/>
+
+                                            <span id="nameMsg" class="help-block"></span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">账&nbsp;&nbsp;&nbsp;&nbsp;户<span class="required">*</span></label>
+
+                                        <div class="controls">
+
+                                            <input type="text" id="authIdAdd" name="authId" class="span6 m-wrap"/>
+
+                                            <span id="authIdAddMsg" class="help-block"></span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-actions">
+
+                                        <button type="submit" class="btn blue">提交</button>
+
+                                        <button type="reset" class="btn">重置</button>
+
+                                    </div>
+
+                                </form>
+
+                            </@shiro.hasRole>
+                            <#--Three-->
+                            <@shiro.hasRole name="threeAdmin">
+
+                                <form action="/customer/insertCustomerThree" id="form_sample_1" class="form-horizontal" method="post" onsubmit="return validateCustomer()">
+
+                                    <div class="alert alert-error hide">
+
+                                        <button class="close" data-dismiss="alert"></button>
+
+                                        You have some form errors. Please check below.
+
+                                    </div>
+
+                                    <div class="alert alert-success hide">
+
+                                        <button class="close" data-dismiss="alert"></button>
+
+                                        Your form validation is successful!
+
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <#if msg??>
+                                                <span><h5><font color="red">${msg}</font></h5></span>
+                                            <#else>
+                                                <span></span>
+                                            </#if>
+                                        </div>
+                                        <label class="control-label">公司名称<span class="required">*</span></label>
+
+                                        <div class="controls">
+
+                                            <input type="text" id="name" name="name" class="span6 m-wrap"/>
+
+                                            <span id="nameMsg" class="help-block"></span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="control-group">
+
+                                        <label class="control-label">账&nbsp;&nbsp;&nbsp;&nbsp;户<span class="required">*</span></label>
+
+                                        <div class="controls">
+
+                                            <input type="text" id="authIdAdd" name="authId" class="span6 m-wrap"/>
+
+                                            <span id="authIdAddMsg" class="help-block"></span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-actions">
+
+                                        <button type="submit" class="btn blue">提交</button>
+
+                                        <button type="reset" class="btn">重置</button>
+
+                                    </div>
+
+                                </form>
+
+                            </@shiro.hasRole>
 
                             <!-- END FORM-->
 

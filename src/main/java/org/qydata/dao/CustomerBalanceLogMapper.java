@@ -11,5 +11,5 @@ public interface CustomerBalanceLogMapper {
      * @param customerBalanceLog
      * @return
      */
-    public boolean insertcustomerBalanceLog(CustomerBalanceLog customerBalanceLog);
+    public boolean insertcustomerBalanceLog(CustomerBalanceLog customerBalanceLog)throws Exception;
 }

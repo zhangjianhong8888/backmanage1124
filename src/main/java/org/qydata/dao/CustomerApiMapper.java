@@ -21,7 +21,7 @@ public interface CustomerApiMapper {
      * @param customerApi
      * @return
      */
-    public boolean insertCustomerApi(CustomerApi customerApi);
+    public boolean insertCustomerApi(CustomerApi customerApi)throws Exception;
 
     /**
      * 根据客户Id查找指定客户的所有CustomerApi
@@ -42,7 +42,7 @@ public interface CustomerApiMapper {
      * @param api
      * @return
      */
-    public boolean updateCustomerApiById(CustomerApi api);
+    public boolean updateCustomerApiById(CustomerApi api)throws Exception;
 
     /**
      * 根据Id查找

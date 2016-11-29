@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean insertCustomer(Map<String,Object> map) {
+    public boolean insertCustomer(Map<String,Object> map)throws Exception {
         Set<Map.Entry<String,Object>> set = map.entrySet();
         Iterator<Map.Entry<String,Object>> it = set.iterator();
         Customer customer = null;
@@ -46,26 +46,29 @@ public class CustomerServiceImpl implements CustomerService {
                 admin = (Admin)me.getValue();
             }
         }
-        //向客户表中插入数据
-        boolean flag = customerMapper.insertCustomer(customer);
-        Customer customer1 = new Customer();
-        customer1.setAuthId(customer.getAuthId()+"_test");
-        customer1.setName(customer.getName());
-        customerMapper.insertCustomerTest(customer1);
-        //向部门客户映射表中插入数据
-        CustomerDeptAdmin customerDeptAdmin1 = new CustomerDeptAdmin();
-        customerDeptAdmin1.setCustomerId(customer.getId());
-        customerDeptAdmin1.setDeptNo(admin.getDeptNo());
-        customerDeptAdmin1.setAdminId(admin.getId());
-        System.out.println(customer.getId());
-        CustomerDeptAdmin customerDeptAdmin2 = new CustomerDeptAdmin();
-        customerDeptAdmin2.setCustomerId(customer1.getId());
-        customerDeptAdmin2.setDeptNo(admin.getDeptNo());
-        customerDeptAdmin2.setAdminId(admin.getId());
-        System.out.println(customer1.getId());
-        customerDeptAdminMapper.insertCustomerDeptAdmin(customerDeptAdmin1);
-        customerDeptAdminMapper.insertCustomerDeptAdminTest(customerDeptAdmin2);
-        return flag;
+        if(admin!=null&&customer!=null) {
+            //向客户表中插入数据
+            Customer customerA = new Customer();
+            customerA.setName(customer.getName().trim());
+            customerA.setAuthId(customer.getAuthId().trim());
+            customerMapper.insertCustomer(customerA);
+            Customer customerB = new Customer();
+            customerB.setAuthId(customer.getAuthId().trim() + "_test");
+            customerB.setName(customer.getName().trim());
+            customerMapper.insertCustomerTest(customerB);
+            //向部门客户映射表中插入数据
+            CustomerDeptAdmin customerDeptAdmin1 = new CustomerDeptAdmin();
+            customerDeptAdmin1.setCustomerId(customerA.getId());
+            customerDeptAdmin1.setDeptNo(admin.getDeptNo());
+            customerDeptAdmin1.setAdminId(admin.getId());
+            CustomerDeptAdmin customerDeptAdmin2 = new CustomerDeptAdmin();
+            customerDeptAdmin2.setCustomerId(customerB.getId());
+            customerDeptAdmin2.setDeptNo(admin.getDeptNo());
+            customerDeptAdmin2.setAdminId(admin.getId());
+            customerDeptAdminMapper.insertCustomerDeptAdmin(customerDeptAdmin1);
+            return customerDeptAdminMapper.insertCustomerDeptAdminTest(customerDeptAdmin2);
+        }
+        return false;
     }
 
     @Override
@@ -77,7 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean insertCustomerIp(String beginIp,String endIp,String customerId) {
+    public boolean insertCustomerIp(String beginIp,String endIp,String customerId) throws Exception{
         List<Long> listA = ChangeIp.spiltIpLong(beginIp);
         List<Long> listB = ChangeIp.spiltIpLong(endIp);
         List<String> listC = ChangeIp.spiltIp(beginIp);
@@ -109,13 +112,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean deleteIpById(Integer id) {
+    public boolean deleteIpById(Integer id)throws Exception {
         return customerMapper.deleteIpById(id);
     }
 
     @Override
-    public boolean updateBalanceByAuthId(Map<String, Object> map) {
-        return customerMapper.updateBalanceByAuthId(map);
+    public PageModel<Customer> findCustomerInfoByColumn(Map<String, Object> map) {
+        PageModel<Customer> pageModel = new PageModel<Customer>();
+        pageModel.setRows(customerMapper.getAllCountByColumn(map));
+        pageModel.setList(customerMapper.findCustomerInfoByColumn(map));
+        return pageModel;
     }
 
 

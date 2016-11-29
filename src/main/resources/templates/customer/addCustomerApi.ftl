@@ -210,11 +210,19 @@
 
                                         <!-- BEGIN FORM-->
 
-                                        <form action="/customer/addCustomerApi" class="form-horizontal" method="post">
+                                        <form action="/customer/addCustomerApiAction" class="form-horizontal" method="post" onsubmit="return validateCustomerApi()">
 
                                             <div id="cloneAddCustomerApi">
 
                                             <div id="addCustomerApi">
+
+                                                <div class="controls">
+                                                    <#if msg??>
+                                                        <span><h5><font color="red">${msg}</font></h5></span>
+                                                    <#else>
+                                                        <span></span>
+                                                    </#if>
+                                                </div>
 
                                             <div class="control-group">
 
@@ -265,15 +273,15 @@
                                             </div>
                                             <div class="control-group">
 
-                                                <label class="control-label">是否启用</label>
+                                                <label class="control-label">激活状态</label>
 
                                                 <div class="controls">
 
                                                     <select id="enabled" name="enabled" class="medium m-wrap" tabindex="1">
 
-                                                        <option value="1">是</option>
+                                                        <option value="true">是</option>
 
-                                                        <option value="0">否</option>
+                                                        <option value="false">否</option>
 
                                                     </select>
 
@@ -319,6 +327,6 @@
 
 
     <#elseif section = "footer">
-    <script src="/js/myjs/customerbalancelog.js" type="text/javascript" ></script>
+    <script src="/js/myjs/customerapi.js" type="text/javascript" ></script>
     </#if>
 </@layout>

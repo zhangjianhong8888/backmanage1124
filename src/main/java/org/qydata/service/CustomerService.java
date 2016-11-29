@@ -26,7 +26,7 @@ public interface CustomerService {
      * @param map 包含了要添加的数据
      * @return 插入成功返回true,否则返回false;
      */
-    public boolean insertCustomer(Map<String,Object> map);
+    public boolean insertCustomer(Map<String,Object> map)throws Exception ;
     /**
      * 查询当前登录着可见的客户信息并分页显示
      * @map 包含了要使用的数据
@@ -41,7 +41,7 @@ public interface CustomerService {
      * @param customerId
      * @return
      */
-    public boolean insertCustomerIp(String beginIp,String endIp,String customerId);
+    public boolean insertCustomerIp(String beginIp,String endIp,String customerId)throws Exception;
     /**
      * 查询全部的CustomerBalanceModifyReason
      * @return
@@ -59,13 +59,9 @@ public interface CustomerService {
      * @param id
      * @return
      */
-    public boolean deleteIpById(Integer id);
-    /**
-     * 根据账户修改余额
-     * @param map
-     * @return
-     */
-    public boolean updateBalanceByAuthId(Map<String,Object> map);
+    public boolean deleteIpById(Integer id)throws Exception;
+
+    public PageModel<Customer> findCustomerInfoByColumn(Map<String,Object> map);
 
 
 //    /**

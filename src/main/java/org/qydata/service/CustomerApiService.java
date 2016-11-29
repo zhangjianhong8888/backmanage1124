@@ -26,7 +26,7 @@ public interface CustomerApiService {
      * @param enabled
      * @return
      */
-    public boolean insertCustomerApi(String price, String customerId, String apiId, String enabled);
+    public boolean insertCustomerApi(String price, String customerId, String apiId, String enabled)throws Exception;
 
     /**
      * 根据客户Id查找指定客户的所有CustomerApi
@@ -39,7 +39,7 @@ public interface CustomerApiService {
      * @param api
      * @return
      */
-    public boolean updateCustomerApiById(CustomerApi api);
+    public boolean updateCustomerApiById(CustomerApi api)throws Exception;
     /**
      * 根据Id查找
      * @param id

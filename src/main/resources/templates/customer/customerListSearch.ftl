@@ -224,9 +224,9 @@
                                     <td class="numeric">${customer.customerStatus.name}</td>
                                     <td class="numeric">${customer.createTime}</td>
                                     <td class="numeric">
-                                        <a href="/customer/addCustomerIpAction/${customer.id}">添加Ip</a>
+                                        <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
                                         <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
-                                        <a href="/customer/addCustomerApiView/${customer.id}">添加Api</a>
+                                        <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
                                         <a href="/customer/findAllCustomerApiList/${customer.id}">管理Api</a>
                                     </td>
                                 </tr>
@@ -247,12 +247,12 @@
                                     <div class="dataTables_paginate paging_bootstrap pagination">
                                         <ul>
                                             <#if (lineSize>1)>
-                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=1"><span class="hidden-480">首页</span></a></li>
-                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
+                                            <li class="next"><a href="/customer/findByCustomerInfoByColumnThree?lineSize=1&content=${content}"><span class="hidden-480">首页</span></a></li>
+                                            <li class="next"><a href="/customer/findByCustomerInfoByColumnThree?lineSize=${lineSize-1}&content=${content}"><span class="hidden-480">上一页</span></a></li>
                                             </#if>
                                             <#if (lineSize<totlePage)>
-                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
-                                            <li class="next"><a href="/customer/findAllCustomerThree?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
+                                            <li class="next"><a href="/customer/findByCustomerInfoByColumnThree?lineSize=${lineSize+1}&content=${content}"><span class="hidden-480">下一页</span></a></li>
+                                            <li class="next"><a href="/customer/findByCustomerInfoByColumnThree?lineSize=${totlePage}&content=${content}"><span class="hidden-480">尾页</span></a></li>
                                             </#if>
                                         </ul>
                                     </div>
@@ -326,9 +326,9 @@
                                             <td class="numeric">${customer.admin.name}</td>
                                             <td class="numeric">${customer.createTime}</td>
                                             <td class="numeric">
-                                                <a href="/customer/addCustomerIpAction/${customer.id}">添加Ip</a>
+                                                <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
                                                 <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
-                                                <a href="/customer/addCustomerApiView/${customer.id}">添加Api</a>
+                                                <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
                                                 <a href="/customer/findAllCustomerApiList/${customer.id}">管理Api</a>
                                             </td>
                                         </tr>
@@ -349,12 +349,12 @@
                                             <div class="dataTables_paginate paging_bootstrap pagination">
                                                 <ul>
                                                     <#if (lineSize>1)>
-                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=1"><span class="hidden-480">首页</span></a></li>
-                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnTwo?lineSize=1&content=${content}"><span class="hidden-480">首页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnTwo?lineSize=${lineSize-1}&content=${content}"><span class="hidden-480">上一页</span></a></li>
                                                     </#if>
                                                     <#if (lineSize<totlePage)>
-                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
-                                                        <li class="next"><a href="/customer/findAllCustomerTwo?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnTwo?lineSize=${lineSize+1}&content=${content}"><span class="hidden-480">下一页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnTwo?lineSize=${totlePage}&content=${content}"><span class="hidden-480">尾页</span></a></li>
                                                     </#if>
                                                 </ul>
                                             </div>
@@ -428,9 +428,9 @@
                                             <td class="numeric">${customer.admin.name}</td>
                                             <td class="numeric">${customer.createTime}</td>
                                             <td class="numeric">
-                                                <a href="/customer/addCustomerIpAction/${customer.id}">添加Ip</a>
+                                                <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
                                                 <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
-                                                <a href="/customer/addCustomerApiView/${customer.id}">添加Api</a>
+                                                <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
                                                 <a href="/customer/findAllCustomerApiList/${customer.id}">管理Api</a>
                                             </td>
                                         </tr>
@@ -451,17 +451,18 @@
                                             <div class="dataTables_paginate paging_bootstrap pagination">
                                                 <ul>
                                                     <#if (lineSize>1)>
-                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=1"><span class="hidden-480">首页</span></a></li>
-                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=${lineSize-1}"><span class="hidden-480">上一页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnOne?lineSize=1&content=${content}"><span class="hidden-480">首页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnOne?lineSize=${lineSize-1}&content=${content}"><span class="hidden-480">上一页</span></a></li>
                                                     </#if>
                                                     <#if (lineSize<totlePage)>
-                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=${lineSize+1}"><span class="hidden-480">下一页</span></a></li>
-                                                        <li class="next"><a href="/customer/findAllCustomerOne?lineSize=${totlePage}"><span class="hidden-480">尾页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnOne?lineSize=${lineSize+1}&content=${content}"><span class="hidden-480">下一页</span></a></li>
+                                                        <li class="next"><a href="/customer/findByCustomerInfoByColumnOne?lineSize=${totlePage}&content=${content}"><span class="hidden-480">尾页</span></a></li>
                                                     </#if>
                                                 </ul>
                                             </div>
                                         </div>
                                     </#if>
+
                                 </div>
 
                             </div>
