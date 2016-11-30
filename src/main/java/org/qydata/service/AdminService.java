@@ -1,7 +1,12 @@
 package org.qydata.service;
 
 import org.qydata.entity.Admin;
+import org.qydata.entity.AdminRoleInfo;
+import org.qydata.entity.Dept;
+import org.qydata.entity.Role;
+import org.qydata.vo.PageModel;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,5 +31,41 @@ public interface AdminService {
      * @throws Exception
      */
     public Map<String,Object> listAuthByAdmin(String loginName) throws Exception ;
+
+    /**
+     * 查询所有的角色
+     * @return
+     * @throws Exception
+     */
+    public List<Role> findAllRole()throws Exception;
+    /**
+     * 查找所有的部门
+     * @return
+     * @throws Exception
+     */
+    public List<Dept> findAllDept()throws Exception;
+
+    /**
+     * 添加管理员并分配角色
+     * @param adminRoleInfo
+     * @return
+     * @throws Exception
+     */
+    public boolean addAdminAndRole(AdminRoleInfo adminRoleInfo)throws Exception;
+
+    /**
+     * 查找全部管理员并分页显示
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    public PageModel<Admin> findAllAdmin(Map<String,Object> map)throws Exception;
+
+    public PageModel<Admin> findAllByColumn(Map<String,Object> map)throws Exception;
+
+    public boolean updateStatusStart(String longinName)throws Exception;
+
+    public boolean updateStatusForbid(String longinName)throws Exception;
+
 
 }

@@ -144,7 +144,7 @@
 
                             <i class="icon-home"></i>
 
-                            <a href="index.html">Home</a>
+                            <a href="#">Home</a>
 
                             <span class="icon-angle-right"></span>
 
@@ -301,8 +301,6 @@
                                                 </div>
 
                                             </div>
-
-
 
                                             <div class="form-actions">
                                                 <button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>

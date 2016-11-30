@@ -4,16 +4,18 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * Created by jonhn on 2016/11/23.
+ * Created by jonhn on 2016/11/30.
  */
-public class Role implements Serializable {
+public class RoleAdmin implements Serializable {
 
     private Integer id;
-    private String name;
-    private String flag;
+    private Integer roleId;
+    private String loginName;
     private Timestamp createTime;
     private Timestamp timestamp;
 
+    public RoleAdmin() {
+    }
 
     public Integer getId() {
         return id;
@@ -23,20 +25,20 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
-    public String getFlag() {
-        return flag;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setFlag(String flag) {
-        this.flag = flag;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public Timestamp getCreateTime() {
@@ -53,16 +55,5 @@ public class Role implements Serializable {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", flag='" + flag + '\'' +
-                ", createTime=" + createTime +
-                ", timestamp=" + timestamp +
-                '}';
     }
 }

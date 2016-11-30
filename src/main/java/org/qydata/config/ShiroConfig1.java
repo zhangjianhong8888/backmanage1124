@@ -9,7 +9,6 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -47,19 +46,19 @@ public class ShiroConfig1 {
 		//filterRegistration.setDispatcherTypes(DispatcherType.ERROR);
         return filterRegistration;
 	}
-	/**
-	 * 使用内置的表单登录控制验证
-	 * @return
-	 */
-	@Bean
-	public FormAuthenticationFilter formAuthenticationFilter(){
-		FormAuthenticationFilter authenticationFilter = new FormAuthenticationFilter();
-		//定义出需要使用的参数，此参数与表单一一对应
-		authenticationFilter.setUsernameParam("loginName");
-		authenticationFilter.setPasswordParam("password");
-		authenticationFilter.setLoginUrl("/view/Login");
-		return authenticationFilter;
-	}
+//	/**
+//	 * 使用内置的表单登录控制验证
+//	 * @return
+//	 */
+//	@Bean
+//	public FormAuthenticationFilter formAuthenticationFilter(){
+//		FormAuthenticationFilter authenticationFilter = new FormAuthenticationFilter();
+//		//定义出需要使用的参数，此参数与表单一一对应
+//		authenticationFilter.setUsernameParam("loginName");
+//		authenticationFilter.setPasswordParam("password");
+//		authenticationFilter.setLoginUrl("/view/Login");
+//		return authenticationFilter;
+//	}
 	/**自定义realm
 	 * @return
 	 */

@@ -1,7 +1,12 @@
 package org.qydata.dao;
 
 import org.qydata.entity.Admin;
+import org.qydata.entity.Dept;
+import org.qydata.entity.Role;
+import org.qydata.entity.RoleAdmin;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -28,6 +33,79 @@ public interface AdminMapper{
      * @return
      */
     public Set<String> findAllActionByAdmin(String loginName) ;
+
+    /**
+     * 查询所有的角色
+     * @return
+     * @throws Exception
+     */
+    public List<Role> findAllRole()throws Exception;
+    /**
+     * 查找所有的部门
+     * @return
+     * @throws Exception
+     */
+    public List<Dept> findAllDept()throws Exception;
+
+    /**
+     * 添加管理员
+     * @param admin
+     * @return
+     * @throws Exception
+     */
+    public boolean addAdmin(Admin admin)throws Exception;
+
+    /**
+     * 分配角色
+     * @param roleAdmin
+     * @return
+     * @throws Exception
+     */
+    public boolean addRoleAdmin(RoleAdmin roleAdmin)throws Exception;
+
+    /**
+     * 查找全部管理员
+     * @return
+     * @throws Exception
+     */
+    public List<Admin> findAllAdmin(Map<String,Object> map)throws Exception;
+
+    /**
+     * 统计数据量
+     * @return
+     * @throws Exception
+     */
+    public Integer getAllCountAdmin()throws Exception;
+
+    /**
+     * 启动账号
+     * @return
+     * @throws Exception
+     */
+    public boolean updateStatusStart(String loginName)throws Exception;
+
+    /**
+     *禁用账号
+     * @return
+     * @throws Exception
+     */
+    public boolean updateStatusforbid(String loginName)throws Exception;
+
+    /**
+     * 模糊搜索
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    public List<Admin> findByColumn(Map<String,Object> map)throws Exception;
+
+    /**
+     * 模糊搜索总数据量
+     * @param map
+     * @return
+     * @throws Exception
+     */
+    public Integer getCountColumn(Map<String,Object> map)throws Exception;
 
 
 }

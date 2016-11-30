@@ -16,10 +16,12 @@ public class Admin implements Serializable {
     private String loginName;
     private String password;
     private String tel;
-    private String type;
     private Integer deptNo;
+    private Integer status;
     private Timestamp createTime;
     private Timestamp timestamp;
+    private Dept dept;
+    private Role role;
     public Admin() {}
 
     public Integer getId() {
@@ -62,12 +64,12 @@ public class Admin implements Serializable {
         this.tel = tel;
     }
 
-    public String getType() {
-        return type;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getDeptNo() {
@@ -93,6 +95,23 @@ public class Admin implements Serializable {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString(){
         ObjectMapper objectMapper = new ObjectMapper();

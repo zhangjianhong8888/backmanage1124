@@ -1,12 +1,14 @@
 package org.qydata.service.impl;
 
 import org.qydata.dao.AdminMapper;
-import org.qydata.entity.Admin;
+import org.qydata.entity.*;
 import org.qydata.service.AdminService;
+import org.qydata.vo.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,5 +30,50 @@ public class AdminServiceImpl implements AdminService {
         map.put("allRoles", this.adminMapper.findAllRoleByAdmin(loginName)) ;
         map.put("allActions", this.adminMapper.findAllActionByAdmin(loginName)) ;
         return map ;
+    }
+
+    @Override
+    public List<Role> findAllRole() throws Exception {
+        return adminMapper.findAllRole();
+    }
+
+    @Override
+    public List<Dept> findAllDept() throws Exception {
+        return adminMapper.findAllDept();
+    }
+
+    @Override
+    public boolean addAdminAndRole(AdminRoleInfo adminRoleInfo) throws Exception {
+        RoleAdmin roleAdmin = new RoleAdmin();
+        roleAdmin.setRoleId(adminRoleInfo.getRole().getId());
+        roleAdmin.setLoginName(adminRoleInfo.getAdmin().getLoginName());
+        adminMapper.addAdmin(adminRoleInfo.getAdmin());
+        return adminMapper.addRoleAdmin(roleAdmin);
+    }
+
+    @Override
+    public PageModel<Admin> findAllAdmin(Map<String,Object> map) throws Exception {
+        PageModel<Admin> pageModel = new PageModel<Admin>();
+        pageModel.setRows(adminMapper.getAllCountAdmin());
+        pageModel.setList(adminMapper.findAllAdmin(map));
+        return pageModel;
+    }
+
+    @Override
+    public PageModel<Admin> findAllByColumn(Map<String, Object> map) throws Exception {
+        PageModel<Admin> pageModel = new PageModel<Admin>();
+        pageModel.setRows(adminMapper.getCountColumn(map));
+        pageModel.setList(adminMapper.findByColumn(map));
+        return pageModel;
+    }
+
+    @Override
+    public boolean updateStatusStart(String longinName) throws Exception {
+        return adminMapper.updateStatusStart(longinName);
+    }
+
+    @Override
+    public boolean updateStatusForbid(String longinName) throws Exception {
+        return adminMapper.updateStatusforbid(longinName);
     }
 }

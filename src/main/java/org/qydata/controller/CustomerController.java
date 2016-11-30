@@ -167,7 +167,7 @@ public class CustomerController {
                 return "redirect:/customer/addCustomerAction";
             }
         }catch (Exception e){
-            model.addFlashAttribute("msg", "添加失败");
+            model.addFlashAttribute("msg", "添加失败，账户名不能重复！");
             return "redirect:/customer/addCustomerAction";
         }
         return "redirect:/customer/findAllCustomerOne";
@@ -187,7 +187,7 @@ public class CustomerController {
                 return "redirect:/customer/addCustomerAction";
             }
         }catch (Exception e){
-            model.addFlashAttribute("msg", "添加失败");
+            model.addFlashAttribute("msg", "添加失败，账户名不能重复！");
             return "redirect:/customer/addCustomerAction";
         }
         return "redirect:/customer/findAllCustomerTwo";
@@ -207,7 +207,7 @@ public class CustomerController {
                 return "redirect:/customer/addCustomerAction";
             }
         }catch (Exception e){
-            model.addFlashAttribute("msg", "添加失败");
+            model.addFlashAttribute("msg", "添加失败，账户名不能重复！");
             return "redirect:/customer/addCustomerAction";
         }
         return "redirect:/customer/findAllCustomerThree";
@@ -388,9 +388,11 @@ public class CustomerController {
         model.addAttribute(customerApi);
         return "/customer/updateCustomerApi";
     }
+
     //根据id修改指定的customerApi
     @RequestMapping(value = "/updateCustomerApiById")
     public String updateCustomerApiById(RedirectAttributes model,@PathVariable CustomerApi customerApi){
+        System.out.println(customerApi);
        /* CustomerApi customerApi = new CustomerApi();
         customerApi.setId(Integer.parseInt(id));
         customerApi.setCustomerId(Integer.parseInt(customerId));

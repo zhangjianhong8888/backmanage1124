@@ -84,6 +84,18 @@
 
         </div>
 
+
+        <div class="control-group">
+
+        <#if msg??>
+            <span><h5><font color="red">${msg}</font></h5></span>
+        <#else>
+            <span></span>
+        </#if>
+
+        </div>
+
+
         <div class="control-group">
 
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->

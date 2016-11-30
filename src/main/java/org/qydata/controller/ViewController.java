@@ -2,12 +2,14 @@ package org.qydata.controller;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.qydata.entity.Admin;
 import org.qydata.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,21 +43,12 @@ public class ViewController {
      * @return
      */
     @RequestMapping("/successUrl")
-    public String successUrl(HttpServletRequest request) {
-        Subject subject = SecurityUtils.getSubject();
-        Admin admin = null;
-        try {
-            admin = adminService.get((String) subject.getPrincipal());
-            request.getSession().setAttribute("adminInfo",admin);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String successUrl() {
         return "view/welcome";
     }
 
-   /* @RequestMapping("/shiroLogin")
-    public ModelAndView login(HttpServletRequest request, String loginName, String password) {
-        ModelAndView mav = new ModelAndView();
+    @RequestMapping("/Login")
+    public String login(HttpServletRequest request, String loginName, String password, RedirectAttributes model) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(loginName, password);
         Admin admin = null;
@@ -63,19 +56,10 @@ public class ViewController {
             admin = adminService.get(loginName);
             request.getSession().setAttribute("adminInfo",admin);
             subject.login(token);
-            mav.setViewName("view/welcome");
-//            System.out.println(subject.getSession().getId()); //取得sessionId
-//            System.out.println(); //取得用户名
-//            System.out.println(subject.getSession().getHost());//取得主机名
-//            System.out.println(subject.getSession().getTimeout());//
-//            System.out.println(subject.getSession().getStartTimestamp());//
-//            System.out.println(subject.getSession().getLastAccessTime());//
-            //subject.getSession().touch();//更新会话
-            //subject.getSession().stop();//停止会话
+            return "redirect:/view/successUrl";
         } catch (Exception e) {
-            e.printStackTrace();
-            mav.setViewName("view/login");
+            model.addFlashAttribute("msg","用户名或密码不正确");
+            return "redirect:/view/loginUrl";
         }
-        return mav;
-    }*/
+    }
 }

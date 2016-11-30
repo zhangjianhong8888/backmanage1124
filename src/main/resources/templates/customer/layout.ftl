@@ -582,14 +582,14 @@
 
                 <@shiro.hasRole name="oneAdmin">
                 <li class="start ">
-                    <a href="#">
+                    <a href="/admin/addAdminView">
                         <i class="icon-home"></i>
                         <span class="title">新增管理员</span>
                     </a>
                 </li>
 
                 <li class="start ">
-                    <a href="#">
+                    <a href="/admin/findAllAdmin">
                         <i class="icon-home"></i>
                         <span class="title">管理员信息</span>
                     </a>

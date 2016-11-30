@@ -37,8 +37,6 @@ public class CustomerApiServiceImpl implements CustomerApiService{
             customerApi.setCustomerId(Integer.parseInt(listCustomerId.get(i)));
             customerApi.setApiId(Integer.parseInt(listApiId.get(i)));
             customerApi.setEnabled(Boolean.parseBoolean(listEnabled.get(i)));
-            System.out.println(enabled);
-            System.out.println(Boolean.parseBoolean(listEnabled.get(i)));
             flag= customerApiMapper.insertCustomerApi(customerApi);
         }
         return flag;

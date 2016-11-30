@@ -200,7 +200,7 @@
 
                                     <li><a href="#" data-toggle="tab">Grid</a></li>
 
-                                    <li class="active"><a href="javaScript:;" onclick="addCustomerApi()" data-toggle="tab">Default</a></li>
+                                    <li class="active"><a href="#" data-toggle="tab">Default</a></li>
 
                                 </ul>
 
@@ -210,11 +210,15 @@
 
                                         <!-- BEGIN FORM-->
 
-                                        <form action="#" class="form-horizontal" method="post">
+                                        <form action="/admin/addAdminAction" class="form-horizontal" method="post">
 
-                                            <div id="cloneAddCustomerApi">
-
-                                                <div id="addCustomerApi">
+                                            <div class="controls">
+                                                <#if msg??>
+                                                    <span><h5><font color="red">${msg}</font></h5></span>
+                                                <#else>
+                                                    <span></span>
+                                                </#if>
+                                            </div>
 
                                                     <div class="control-group">
 
@@ -222,7 +226,7 @@
 
                                                         <div class="controls">
 
-                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+                                                            <input type="text" id="admin.name" name="admin.name" class="m-wrap medium">
 
                                                             <span id="priceMsg" class="help-inline"></span>
 
@@ -236,7 +240,7 @@
 
                                                         <div class="controls">
 
-                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+                                                            <input type="text" id="admin.loginName" name="admin.loginName" class="m-wrap medium">
 
                                                             <span id="priceMsg" class="help-inline"></span>
 
@@ -246,11 +250,11 @@
 
                                                     <div class="control-group">
 
-                                                        <label class="control-label">密码</label>
+                                                        <label class="control-label">初始密码</label>
 
                                                         <div class="controls">
 
-                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+                                                            <input type="text" id="admin.password" name="admin.password" class="m-wrap medium">
 
                                                             <span id="priceMsg" class="help-inline"></span>
 
@@ -264,7 +268,7 @@
 
                                                         <div class="controls">
 
-                                                            <input type="text" id="price" name="price" class="m-wrap medium">
+                                                            <input type="text" id="admin.tel" name="admin.tel" class="m-wrap medium">
 
                                                             <span id="priceMsg" class="help-inline"></span>
 
@@ -278,31 +282,11 @@
 
                                                         <div class="controls">
 
-                                                            <select id="apiId" name="apiId" class="medium m-wrap" tabindex="1">
+                                                            <select id="admin.deptNo" name="admin.deptNo" class="medium m-wrap" tabindex="1">
 
-                                                                <#list apiList as api>
+                                                                <#list listDept as dept>
 
-                                                                    <option value="${api.id}">${api.name}</option>
-
-                                                                </#list>
-
-                                                            </select>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="control-group">
-
-                                                        <label class="control-label">等级</label>
-
-                                                        <div class="controls">
-
-                                                            <select id="apiId" name="apiId" class="medium m-wrap" tabindex="1">
-
-                                                                <#list apiList as api>
-
-                                                                    <option value="${api.id}">${api.name}</option>
+                                                                    <option value="${dept.deptNo}">${dept.deptName}</option>
 
                                                                 </#list>
 
@@ -314,15 +298,35 @@
 
                                                     <div class="control-group">
 
-                                                        <label class="control-label">是否启用</label>
+                                                        <label class="control-label">角色</label>
 
                                                         <div class="controls">
 
-                                                            <select id="enabled" name="enabled" class="medium m-wrap" tabindex="1">
+                                                            <select id="role.id" name="role.id" class="medium m-wrap" tabindex="1">
 
-                                                                <option value="1">是</option>
+                                                                <#list listRole as role>
 
-                                                                <option value="0">否</option>
+                                                                    <option value="${role.id}">${role.name}</option>
+
+                                                                </#list>
+
+                                                            </select>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="control-group">
+
+                                                        <label class="control-label">状态</label>
+
+                                                        <div class="controls">
+
+                                                            <select id="admin.status" name="admin.status" class="medium m-wrap" tabindex="1">
+
+                                                                <option value="0">启用</option>
+
+                                                                <option value="1">禁用</option>
 
                                                             </select>
 
@@ -335,16 +339,12 @@
 
                                             <div class="form-actions">
                                                 <button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>
-                                                <button type="button" class="btn">Cancel</button>
+                                                <button type="reset" class="btn">Cancel</button>
                                             </div>
 
                                         </form>
 
                                         <!-- END FORM-->
-
-                                    </div>
-
-                                </div>
 
                             </div>
 
