@@ -58,7 +58,7 @@ public class AdminController {
                 return "redirect:/admin/addAdminView";
             }
         } catch (Exception e) {
-            model.addFlashAttribute("msg","添加失败,用户名不能重复！");
+            model.addFlashAttribute("msg","添加失败!");
             return "redirect:/admin/addAdminView";
         }
         return "redirect:/admin/findAllAdmin";

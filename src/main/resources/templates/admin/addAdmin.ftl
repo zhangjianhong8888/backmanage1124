@@ -210,7 +210,7 @@
 
                                         <!-- BEGIN FORM-->
 
-                                        <form action="/admin/addAdminAction" class="form-horizontal" method="post">
+                                        <form action="/admin/addAdminAction" class="form-horizontal" method="post" onsubmit="return validateAdmin()">
 
                                             <div class="controls">
                                                 <#if msg??>
@@ -228,7 +228,7 @@
 
                                                             <input type="text" id="admin.name" name="admin.name" class="m-wrap medium">
 
-                                                            <span id="priceMsg" class="help-inline"></span>
+                                                            <span id="admin.nameMsg" class="help-inline"></span>
 
                                                         </div>
 
@@ -242,7 +242,7 @@
 
                                                             <input type="text" id="admin.loginName" name="admin.loginName" class="m-wrap medium">
 
-                                                            <span id="priceMsg" class="help-inline"></span>
+                                                            <span id="admin.loginNameMsg" class="help-inline"></span>
 
                                                         </div>
 
@@ -256,7 +256,7 @@
 
                                                             <input type="text" id="admin.password" name="admin.password" class="m-wrap medium">
 
-                                                            <span id="priceMsg" class="help-inline"></span>
+                                                            <span id="admin.passwordMsg" class="help-inline"></span>
 
                                                         </div>
 
@@ -270,7 +270,7 @@
 
                                                             <input type="text" id="admin.tel" name="admin.tel" class="m-wrap medium">
 
-                                                            <span id="priceMsg" class="help-inline"></span>
+                                                            <span id="admin.telMsg" class="help-inline"></span>
 
                                                         </div>
 
@@ -368,6 +368,6 @@
 
 
     <#elseif section = "footer">
-
+    <script src="/js/myjs/admin.js" type="text/javascript" ></script>
     </#if>
 </@layout>

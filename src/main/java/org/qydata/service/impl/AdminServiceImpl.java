@@ -7,6 +7,7 @@ import org.qydata.vo.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +45,17 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public boolean addAdminAndRole(AdminRoleInfo adminRoleInfo) throws Exception {
-        RoleAdmin roleAdmin = new RoleAdmin();
-        roleAdmin.setRoleId(adminRoleInfo.getRole().getId());
-        roleAdmin.setLoginName(adminRoleInfo.getAdmin().getLoginName());
-        adminMapper.addAdmin(adminRoleInfo.getAdmin());
-        return adminMapper.addRoleAdmin(roleAdmin);
+        boolean flag = false;
+        try {
+            adminMapper.addAdmin(adminRoleInfo.getAdmin());
+            RoleAdmin roleAdmin = new RoleAdmin();
+            roleAdmin.setRoleId(adminRoleInfo.getRole().getId());
+            roleAdmin.setLoginName(adminRoleInfo.getAdmin().getLoginName());
+           flag = adminMapper.addRoleAdmin(roleAdmin);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 
     @Override

@@ -46,7 +46,6 @@ public class CustomerServiceImpl implements CustomerService {
                 admin = (Admin)me.getValue();
             }
         }
-        if(admin!=null&&customer!=null) {
             //向客户表中插入数据
             Customer customerA = new Customer();
             customerA.setName(customer.getName().trim());
@@ -67,8 +66,6 @@ public class CustomerServiceImpl implements CustomerService {
             customerDeptAdmin2.setAdminId(admin.getId());
             customerDeptAdminMapper.insertCustomerDeptAdmin(customerDeptAdmin1);
             return customerDeptAdminMapper.insertCustomerDeptAdminTest(customerDeptAdmin2);
-        }
-        return false;
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.qydata.entity.AdminRoleInfo;
 import org.qydata.entity.Dept;
 import org.qydata.entity.Role;
 import org.qydata.vo.PageModel;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,7 @@ public interface AdminService {
      * @return
      * @throws Exception
      */
+    @Transactional
     public boolean addAdminAndRole(AdminRoleInfo adminRoleInfo)throws Exception;
 
     /**
@@ -61,10 +63,30 @@ public interface AdminService {
      */
     public PageModel<Admin> findAllAdmin(Map<String,Object> map)throws Exception;
 
+    /**
+     * 模糊搜索并分页
+     * @param map
+     * @return
+     * @throws Exception
+     */
     public PageModel<Admin> findAllByColumn(Map<String,Object> map)throws Exception;
 
+    /**
+     * 启用
+     * @param longinName
+     * @return
+     * @throws Exception
+     */
+    @Transactional
     public boolean updateStatusStart(String longinName)throws Exception;
 
+    /**
+     * 禁用
+     * @param longinName
+     * @return
+     * @throws Exception
+     */
+    @Transactional
     public boolean updateStatusForbid(String longinName)throws Exception;
 
 

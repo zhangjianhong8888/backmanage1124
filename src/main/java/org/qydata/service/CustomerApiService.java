@@ -3,6 +3,7 @@ package org.qydata.service;
 import org.qydata.entity.Api;
 import org.qydata.entity.CustomerApi;
 import org.qydata.vo.PageModel;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ public interface CustomerApiService {
      * @param enabled
      * @return
      */
+    @Transactional
     public boolean insertCustomerApi(String price, String customerId, String apiId, String enabled)throws Exception;
 
     /**
@@ -39,6 +41,7 @@ public interface CustomerApiService {
      * @param api
      * @return
      */
+    @Transactional
     public boolean updateCustomerApiById(CustomerApi api)throws Exception;
     /**
      * 根据Id查找

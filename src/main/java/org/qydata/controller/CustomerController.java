@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 /**
  * Created by jonhn on 2016/11/8.
  */
@@ -167,7 +165,8 @@ public class CustomerController {
                 return "redirect:/customer/addCustomerAction";
             }
         }catch (Exception e){
-            model.addFlashAttribute("msg", "添加失败，账户名不能重复！");
+            e.printStackTrace();
+            model.addFlashAttribute("msg", "添加失败！");
             return "redirect:/customer/addCustomerAction";
         }
         return "redirect:/customer/findAllCustomerOne";
@@ -183,11 +182,11 @@ public class CustomerController {
         try{
             boolean flag = customerService.insertCustomer(map);
             if (!flag) {
-                model.addFlashAttribute("msg", "添加失败");
+                model.addFlashAttribute("msg", "添加失败!");
                 return "redirect:/customer/addCustomerAction";
             }
         }catch (Exception e){
-            model.addFlashAttribute("msg", "添加失败，账户名不能重复！");
+            model.addFlashAttribute("msg", "添加失败！");
             return "redirect:/customer/addCustomerAction";
         }
         return "redirect:/customer/findAllCustomerTwo";
@@ -207,7 +206,7 @@ public class CustomerController {
                 return "redirect:/customer/addCustomerAction";
             }
         }catch (Exception e){
-            model.addFlashAttribute("msg", "添加失败，账户名不能重复！");
+            model.addFlashAttribute("msg", "添加失败!");
             return "redirect:/customer/addCustomerAction";
         }
         return "redirect:/customer/findAllCustomerThree";
@@ -326,6 +325,7 @@ public class CustomerController {
     }
 
 
+
     //添加CustomerApi
     @RequestMapping(value = "/addCustomerApiView/{customerId}")
     public String addCustomerApiView(@PathVariable("customerId") String customerId,Model model){
@@ -378,7 +378,6 @@ public class CustomerController {
         return "/customer/customerApiList";
     }
 
-
     //根据id查找指定的customerApi
     @RequestMapping(value = "/findCustomerApiById/{id}")
     public String findCustomerApiById(@PathVariable("id") String id,Model model){
@@ -391,14 +390,13 @@ public class CustomerController {
 
     //根据id修改指定的customerApi
     @RequestMapping(value = "/updateCustomerApiById")
-    public String updateCustomerApiById(RedirectAttributes model,@PathVariable CustomerApi customerApi){
-        System.out.println(customerApi);
-       /* CustomerApi customerApi = new CustomerApi();
+    public String updateCustomerApiById(String id,String customerId,String price,String apiId,String enabled,RedirectAttributes model ){
+       CustomerApi customerApi = new CustomerApi();
         customerApi.setId(Integer.parseInt(id));
         customerApi.setCustomerId(Integer.parseInt(customerId));
-        customerApi.setPrice(Integer.parseInt(price));
+        customerApi.setPrice(Integer.parseInt(price.trim().replaceAll(",","")));
         customerApi.setApiId(Integer.parseInt(apiId));
-        customerApi.setEnabled(Boolean.parseBoolean(enabled));*/
+        customerApi.setEnabled(Boolean.parseBoolean(enabled));
         try {
             boolean flag = customerApiService.updateCustomerApiById(customerApi);
             if (!flag) {
@@ -518,44 +516,5 @@ public class CustomerController {
         return "/customer/customerListSearch";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @RequestMapping(value = ("/addAdmin"),method = GET)
-    public String addAdmin(){
-        return "customer/addAdmin";
-    }
-
-
-//    @RequestMapping(value = ("/selectAll"))
-//    public String selectAll(Model model, HttpServletResponse response){
-//        PageModel<Customer> pageModel = new PageModel();
-//        pageModel.setCpage("2");
-//        pageModel.setPageSize("5");
-//        PageModel<Customer> pageModela = customerService.selectAll(pageModel);
-//        Integer count = pageModela.getRows();
-//        List<Customer> list = pageModela.getList();
-//
-//
-//        System.out.println(count);
-//
-//        model.addAttribute("customerlist",list);
-//        return "test/testcustomerlist";
-//    }
-//    @RequestMapping("/delete/{id}")
-//    public String delete(@PathVariable Integer id){
-//        customerService.deleteCustomer(id);
-//        return "/customer/selectAll";
-//    }
 
 }
