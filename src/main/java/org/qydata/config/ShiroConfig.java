@@ -2,9 +2,9 @@ package org.qydata.config;
 
 import com.google.common.collect.Maps;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
+import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator;
-import org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +39,7 @@ public class ShiroConfig {
 		//如果将其内容设置为true，则表示由Servlet容器进行管理
         filterRegistration.setEnabled(true);
         filterRegistration.addUrlPatterns("/*");
-        filterRegistration.setDispatcherTypes(DispatcherType.REQUEST);
+        //filterRegistration.setDispatcherTypes(DispatcherType.REQUEST);
 		//filterRegistration.setDispatcherTypes(DispatcherType.FORWARD);
 		//filterRegistration.setDispatcherTypes(DispatcherType.INCLUDE);
 		//filterRegistration.setDispatcherTypes(DispatcherType.ERROR);
@@ -107,7 +106,7 @@ public class ShiroConfig {
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 		manager.setRealm(adminRealm());
 		manager.setCacheManager(cacheManager());
-		manager.setSessionManager(defaultWebSessionManager());
+		manager.setSessionManager(sessionManager());
 		return manager;
 	}
 
@@ -123,19 +122,7 @@ public class ShiroConfig {
 	}
 
 
-	/**
-	 * 配置Session  DAO操作处理
-	 * @return
-	 */
-	@Bean
-	public EnterpriseCacheSessionDAO enterpriseCacheSessionDAO(){
-		EnterpriseCacheSessionDAO cacheSessionDAO = new EnterpriseCacheSessionDAO();
-		//设置session缓存的名字
-		cacheSessionDAO.setActiveSessionsCacheName("qydata-shiro-activeSessionsCacheName");
-		//定义该Session  DAO操作中所使用的的ID生成器
-		cacheSessionDAO.setSessionIdGenerator(javaUuidSessionIdGenerator());
-		return cacheSessionDAO;
-	}
+
 	/**
 	 * 定义Session  ID生成管理器
 	 * @return
@@ -145,6 +132,22 @@ public class ShiroConfig {
 		JavaUuidSessionIdGenerator sessionIdGenerator = new JavaUuidSessionIdGenerator();
 		return sessionIdGenerator;
 	}
+
+
+	/**
+	 * 配置Session  DAO操作处理
+	 * @return
+	 */
+	@Bean
+	public EnterpriseCacheSessionDAO sessionDAO(){
+		EnterpriseCacheSessionDAO cacheSessionDAO = new EnterpriseCacheSessionDAO();
+		//设置session缓存的名字
+		cacheSessionDAO.setActiveSessionsCacheName("qydata-shiro-activeSessionsCacheName");
+		//定义该Session  DAO操作中所使用的的ID生成器
+		cacheSessionDAO.setSessionIdGenerator(javaUuidSessionIdGenerator());
+		return cacheSessionDAO;
+	}
+
 	/**
 	 * 配置需要向Cookie中保存数据的配置模板
 	 * @return
@@ -160,41 +163,58 @@ public class ShiroConfig {
 		cookie.setMaxAge(-1);
 		return cookie;
 	}
+
+
 	/**
 	 * 配置Session的定时验证检测程序类，以让无效的Session释放
 	 * @return
 	 */
+//	@Bean
+//	public QuartzSessionValidationScheduler quartzSessionValidationScheduler(){
+//		QuartzSessionValidationScheduler sessionValidationScheduler = new QuartzSessionValidationScheduler();
+//		//设置Session失效扫描间隔时间，单位毫秒
+//		sessionValidationScheduler.setSessionValidationInterval(60000);
+//		//会话管理器的程序类应用
+//		sessionValidationScheduler.setSessionManager(sessionManager());
+//		return sessionValidationScheduler;
+//	}
 	@Bean
-	public QuartzSessionValidationScheduler quartzSessionValidationScheduler(){
-		QuartzSessionValidationScheduler sessionValidationScheduler = new QuartzSessionValidationScheduler();
-		//设置Session失效扫描间隔时间，单位毫秒
-		sessionValidationScheduler.setSessionValidationInterval(100000);
-		//会话管理器的程序类应用
-		sessionValidationScheduler.setSessionManager(defaultWebSessionManager());
-		return sessionValidationScheduler;
+	public ExecutorServiceSessionValidationScheduler sessionValidationScheduler(){
+		ExecutorServiceSessionValidationScheduler serviceSessionValidationScheduler = new ExecutorServiceSessionValidationScheduler();
+		serviceSessionValidationScheduler.setInterval(1800000);
+		serviceSessionValidationScheduler.setSessionManager(sessionManager());
+		return serviceSessionValidationScheduler;
 	}
 	/**
 	 * session会话管理器
 	 * @return
 	 */
 	@Bean(name="sessionManager")
-	public DefaultWebSessionManager defaultWebSessionManager() {
+	public DefaultWebSessionManager sessionManager() {
 		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-		sessionManager.setCacheManager(cacheManager());
+
 		//定义的是全局的session会话超时时间，此操作会覆盖web中的超市时间配置
-		sessionManager.setGlobalSessionTimeout(1000000);
+		sessionManager.setGlobalSessionTimeout(600000);
+
 		//删除所有无效的session对象，此时的session被保存在了内存里面
 		sessionManager.setDeleteInvalidSessions(true);
+
 		//需要要使用的无效的Session定时调度器
-		//sessionManager.setSessionValidationScheduler(quartzSessionValidationScheduler());
+		//sessionManager.setSessionValidationScheduler(sessionValidationScheduler());
+
 		//需要让此session可以使用该定时调度器进行检测
 		sessionManager.setSessionValidationSchedulerEnabled(true);
+
 		//定义Session可以进行序列化的工具类
-		sessionManager.setSessionDAO(enterpriseCacheSessionDAO());
+		sessionManager.setSessionDAO(sessionDAO());
+
+
 		//所有的Session一定要将ID设置到Cookie中去
 		sessionManager.setSessionIdCookie(simpleCookie());
+
 		//定义simpleCookie模板可以进行操作的启用
 		sessionManager.setSessionIdCookieEnabled(true);
+
 		return sessionManager;
 	}
 
@@ -223,6 +243,10 @@ public class ShiroConfig {
 		chains.put("/", "anon");
 		chains.put("/view/successUrl", "authc");
 		chains.put("/view/unauthUrl", "authc");
+		//静态资源
+		chains.put("/js/**", "anon");
+		chains.put("/css/**", "anon");
+		chains.put("/image/**", "anon");
 		//出错页面
 		chains.put("/error/404", "authc");
 		chains.put("/error/500", "authc");
@@ -255,6 +279,18 @@ public class ShiroConfig {
 		chains.put("/customer/findAllCustomerApiList/**", "authc");
 		chains.put("/customer/findCustomerApiById/**", "authc");
 		chains.put("/customer/updateCustomerApiById", "authc");
+		//一级管理
+		chains.put("/admin/addAdminView", "authc,perms");
+		chains.put("/admin/addAdminAction", "authc,perms");
+		chains.put("/admin/findAllAdmin", "authc,perms");
+		chains.put("/admin/findAllByColumn", "authc,perms");
+
+		chains.put("/admin/statusStart/**", "authc");
+		chains.put("/admin/statusForbid/**", "authc");
+		//修改密码
+		chains.put("/admin/updatePasswordView", "authc");
+		chains.put("/admin/updatePasswordAction", "authc");
+
 		bean.setFilterChainDefinitionMap(chains);
 		return bean;
 	}

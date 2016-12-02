@@ -1,5 +1,6 @@
 package org.qydata.controller;
 
+import org.apache.log4j.Logger;
 import org.qydata.entity.*;
 import org.qydata.service.CustomerApiService;
 import org.qydata.service.CustomerBalanceLogService;
@@ -27,13 +28,14 @@ import java.util.Map;
 @RequestMapping("/customer")
 public class CustomerController {
 
+    private final Logger log = Logger.getLogger(this.getClass());
+
     @Autowired
     private CustomerService customerService;
     @Autowired
     private CustomerBalanceLogService customerBalanceLogService;
     @Autowired
     private CustomerApiService customerApiService;
-
 
     private Integer getLineSize(String lineSize){
         if(lineSize==null||lineSize.trim().isEmpty()||Integer.parseInt(lineSize)<=0){
@@ -306,7 +308,7 @@ public class CustomerController {
             Model.addFlashAttribute("msg","添加失败");
             return "redirect:/customer/addCustomerBalanceLogView";
         }
-        return "redirect:/customer/findAllCustomeTwo";
+        return "redirect:/customer/findAllCustomerTwo";
     }
     //三级管理员
     @RequestMapping(value = "/addCustomerBalanceLogActionThree")

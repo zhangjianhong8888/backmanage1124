@@ -137,7 +137,7 @@
 
                             <i class="icon-home"></i>
 
-                            <a href="index.html">首页</a>
+                            <a href="/view/successUrl">首页</a>
 
                             <i class="icon-angle-right"></i>
 
@@ -145,7 +145,7 @@
 
                         <li>
 
-                            <a href="#">客管理员</a>
+                            <a href="#">管理员</a>
 
                             <i class="icon-angle-right"></i>
 

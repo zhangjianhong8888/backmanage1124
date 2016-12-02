@@ -144,7 +144,7 @@
 
                             <i class="icon-home"></i>
 
-                            <a href="index.html">首页</a>
+                            <a href="/view/successUrl">首页</a>
 
                             <span class="icon-angle-right"></span>
 

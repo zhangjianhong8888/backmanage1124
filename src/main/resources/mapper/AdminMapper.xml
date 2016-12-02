@@ -112,4 +112,9 @@
         or d.deptName like '%${content}%' or a.tel like '%${content}%' or r.name like '%${content}%')
         order by a.createTime desc
     </select>
+    <!--根据用户名和旧密码修改密码-->
+    <update id="updatePassword" parameterType="java.lang.String">
+        update qyauth.Admin set password=#{param3}
+        where loginName=#{param1} and password=#{param2}
+    </update>
 </mapper>

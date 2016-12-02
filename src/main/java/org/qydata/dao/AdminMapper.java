@@ -107,5 +107,14 @@ public interface AdminMapper{
      */
     public Integer getCountColumn(Map<String,Object> map)throws Exception;
 
+    /**
+     * 根据用户名和旧密码修改密码
+     * @param loginName
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    public boolean updatePassword(String loginName,String password,String newPassword)throws Exception;
+
 
 }

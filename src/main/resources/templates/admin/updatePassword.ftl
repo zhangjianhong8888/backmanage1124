@@ -1,5 +1,5 @@
 
-<#include "layout.ftl">
+<#include "../customer/layout.ftl">
 
 <@layout ; section>
     <#if section = "head">
@@ -132,9 +132,9 @@
 
                     <h3 class="page-title">
 
-                        Form Layouts
+                        Form Wizard
 
-                        <small>form layouts and more</small>
+                        <small>form wizard sample</small>
 
                     </h3>
 
@@ -152,13 +152,13 @@
 
                         <li>
 
-                            <a href="#">客户管理</a>
+                            <a href="#">管理员</a>
 
                             <span class="icon-angle-right"></span>
 
                         </li>
 
-                        <li><a href="#">添加Api</a></li>
+                        <li><a href="#">修改密码</a></li>
 
                     </ul>
 
@@ -174,17 +174,25 @@
 
                 <div class="span12">
 
-                    <!-- BEGIN SAMPLE FORM PORTLET-->
-
-                    <div class="portlet box blue tabbable">
+                    <div class="portlet box blue" id="form_wizard_1">
 
                         <div class="portlet-title">
 
                             <div class="caption">
 
-                                <i class="icon-reorder"></i>
+                                <i class="icon-reorder"></i> Form Wizard - <span class="step-title">Step 1 of 4</span>
 
-                                <span class="hidden-480">General Layouts</span>
+                            </div>
+
+                            <div class="tools hidden-phone">
+
+                                <a href="javascript:;" class="collapse"></a>
+
+                                <a href="#portlet-config" data-toggle="modal" class="config"></a>
+
+                                <a href="javascript:;" class="reload"></a>
+
+                                <a href="javascript:;" class="remove"></a>
 
                             </div>
 
@@ -192,133 +200,99 @@
 
                         <div class="portlet-body form">
 
-                            <div class="tabbable portlet-tabs">
+                            <form action="/admin/updatePasswordAction" method="post" class="form-horizontal" id="submit_form" onsubmit="return validateUpdatePassword()">
 
-                                <ul class="nav nav-tabs">
+                                <div class="form-wizard">
 
-                                    <li><a href="#" data-toggle="tab">Inline</a></li>
+                                    <div class="tab-content">
 
-                                    <li><a href="#" data-toggle="tab">Grid</a></li>
+                                        <div class="tab-pane active" id="tab1">
 
-                                    <li class="active"><a href="#"" data-toggle="tab">Default</a></li>
+                                            <h3 class="block">请填写信息</h3>
 
-                                </ul>
+                                            <div class="controls">
+                                                <#if msg??>
+                                                    <span><h5><font color="red">${msg}</font></h5></span>
+                                                <#else>
+                                                    <span></span>
+                                                </#if>
+                                            </div>
 
-                                <div class="tab-content">
+                                            <div class="control-group">
 
-                                    <div class="form-search pull-left">
+                                                <label class="control-label">用户名<span class="required">*</span></label>
 
-                                        <a href="javaScript:;" onclick="addCustomerApi()"><i class="icon-plus"></i>Add</a>
+                                                <div class="controls">
+
+                                                    <input type="text" class="span6 m-wrap" id="loginName" name="loginName"/>
+
+                                                    <span class="help-inline" id="loginNameMsg"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <label class="control-label">旧密码<span class="required">*</span></label>
+
+                                                <div class="controls">
+
+                                                    <input type="password" class="span6 m-wrap" id="password" name="password"/>
+
+                                                    <span class="help-inline" id="passwordMsg"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <label class="control-label">新密码<span class="required">*</span></label>
+
+                                                <div class="controls">
+
+                                                    <input type="password" class="span6 m-wrap" id="newPassword" name="newPassword"/>
+
+                                                    <span class="help-inline" id="newPasswordMsg"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="control-group">
+
+                                                <label class="control-label">再次输入新密码<span class="required">*</span></label>
+
+                                                <div class="controls">
+
+                                                    <input type="password" class="span6 m-wrap" id="rppassword" name="rppassword"/>
+
+                                                    <span class="help-inline" id="rppasswordMsg"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
 
-                                    <div class="tab-pane active" id="portlet_tab1">
+                                    <div class="form-actions">
 
-                                        <!-- BEGIN FORM-->
+                                        <button type="submit" class="btn blue">提交</button>
 
-                                        <form action="/customer/addCustomerApiAction" class="form-horizontal" method="post" onsubmit="return validateCustomerApi()">
-
-                                            <div id="cloneAddCustomerApi">
-
-                                            <div id="addCustomerApi">
-
-                                                <div class="controls">
-                                                    <#if msg??>
-                                                        <span><h5><font color="red">${msg}</font></h5></span>
-                                                    <#else>
-                                                        <span></span>
-                                                    </#if>
-                                                </div>
-
-                                            <div class="control-group">
-
-                                                <label class="control-label">价&nbsp;&nbsp;格</label>
-
-                                                <div class="controls">
-
-                                                    <input type="text" id="price" name="price" class="m-wrap medium">
-
-                                                    <span id="priceMsg" class="help-inline"></span>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="control-group" style="display: none">
-
-                                                <label class="control-label">客户ID</label>
-
-                                                <div class="controls">
-
-                                                    <input type="text" id="customerId" name="customerId" value="${customerId}" class="m-wrap medium">
-
-                                                    <span id="customerIdMsg" class="help-inline"></span>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="control-group">
-
-                                                <label class="control-label">供应商</label>
-
-                                                <div class="controls">
-
-                                                    <select id="apiId" name="apiId" class="medium m-wrap" tabindex="1">
-
-                                                        <#list apiList as api>
-
-                                                        <option value="${api.id}">${api.name}</option>
-
-                                                        </#list>
-
-                                                    </select>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="control-group">
-
-                                                <label class="control-label">激活状态</label>
-
-                                                <div class="controls">
-
-                                                    <select id="enabled" name="enabled" class="medium m-wrap" tabindex="1">
-
-                                                        <option value="true">是</option>
-
-                                                        <option value="false">否</option>
-
-                                                    </select>
-
-                                                </div>
-
-                                            </div>
-
-                                            </div>
-
-                                            </div>
-
-                                            <div class="form-actions">
-                                                <button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>
-                                                <button type="button" class="btn">Cancel</button>
-                                            </div>
-
-                                        </form>
-
-                                        <!-- END FORM-->
+                                        <button type="reset" class="btn">重置</button>
 
                                     </div>
 
                                 </div>
 
-                            </div>
+                            </form>
 
                         </div>
 
                     </div>
-
-                    <!-- END SAMPLE FORM PORTLET-->
 
                 </div>
 
@@ -334,6 +308,6 @@
 
 
     <#elseif section = "footer">
-    <script src="/js/myjs/customerapi.js" type="text/javascript" ></script>
+    <script src="/js/myjs/updatepassword.js" type="text/javascript" ></script>
     </#if>
 </@layout>

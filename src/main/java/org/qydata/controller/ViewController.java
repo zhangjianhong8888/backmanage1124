@@ -56,10 +56,12 @@ public class ViewController {
             admin = adminService.get(loginName);
             request.getSession().setAttribute("adminInfo",admin);
             subject.login(token);
+
             return "redirect:/view/successUrl";
         } catch (Exception e) {
+            e.printStackTrace();
             model.addFlashAttribute("msg","用户名或密码不正确");
-            return "redirect:/view/loginUrl";
+            return "redirect:/";
         }
     }
 }

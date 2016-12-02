@@ -1,5 +1,6 @@
 package org.qydata.controller;
 
+import org.apache.log4j.Logger;
 import org.qydata.entity.Admin;
 import org.qydata.entity.AdminRoleInfo;
 import org.qydata.entity.Dept;
@@ -24,6 +25,8 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
+
+    private final Logger log = Logger.getLogger(this.getClass());
 
     @Autowired
     private AdminService adminService;
@@ -151,6 +154,28 @@ public class AdminController {
             e.printStackTrace();
         }
         return "redirect:/admin/findAllAdmin";
+    }
+
+    @RequestMapping(value = "/updatePasswordView")
+    public String updatePasswordView(){
+        return "/admin/updatePassword";
+    }
+
+    @RequestMapping(value = "/updatePasswordAction")
+    public String updatePasswordAction(String loginName,String password,String newPassword,RedirectAttributes model){
+        try {
+           boolean flag = adminService.updatePassword(loginName.trim(),password.trim(),newPassword.trim());
+           if(!flag){
+               model.addFlashAttribute("msg","修改失败！");
+               return "redirect:/admin/updatePasswordView";
+           }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("updatePasswordErroe:修改密码异常");
+            model.addFlashAttribute("msg","修改失败！");
+            return "redirect:/admin/updatePasswordView";
+        }
+        return "redirect:/";
     }
 
 }

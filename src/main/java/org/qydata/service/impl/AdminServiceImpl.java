@@ -83,4 +83,9 @@ public class AdminServiceImpl implements AdminService {
     public boolean updateStatusForbid(String longinName) throws Exception {
         return adminMapper.updateStatusforbid(longinName);
     }
+
+    @Override
+    public boolean updatePassword(String loginName, String password, String newPassword) throws Exception {
+        return adminMapper.updatePassword(loginName,password,newPassword);
+    }
 }

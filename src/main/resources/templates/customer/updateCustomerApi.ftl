@@ -144,7 +144,7 @@
 
                             <i class="icon-home"></i>
 
-                            <a href="#">Home</a>
+                            <a href="/view/successUrl">首页</a>
 
                             <span class="icon-angle-right"></span>
 
@@ -152,13 +152,13 @@
 
                         <li>
 
-                            <a href="#">Form Stuff</a>
+                            <a href="#">客户管理</a>
 
                             <span class="icon-angle-right"></span>
 
                         </li>
 
-                        <li><a href="#">Form Layouts</a></li>
+                        <li><a href="#">修改Api</a></li>
 
                     </ul>
 
@@ -279,6 +279,7 @@
                                                         </#list>
 
                                                     </select>
+                                                    <span class="help-inline">（原供应商：${customerApi.api.name}）</span>
 
                                                 </div>
 
@@ -297,6 +298,14 @@
                                                         <option value="false">否</option>
 
                                                     </select>
+
+                                                    <span class="help-inline">（原状态：<#if customerApi.enabled>
+                                                                                            已激活
+                                                                                        </#if>
+                                                                                        <#if !customerApi.enabled>
+                                                                                            未激活
+                                                                                        </#if >）
+                                                    </span>
 
                                                 </div>
 

@@ -144,7 +144,7 @@
 
                             <i class="icon-home"></i>
 
-                            <a href="index.html">Home</a>
+                            <a href="/view/successUrl">首页</a>
 
                             <span class="icon-angle-right"></span>
 
@@ -152,13 +152,13 @@
 
                         <li>
 
-                            <a href="#">Form Stuff</a>
+                            <a href="#">管理员</a>
 
                             <span class="icon-angle-right"></span>
 
                         </li>
 
-                        <li><a href="#">Form Layouts</a></li>
+                        <li><a href="#">新增管理员</a></li>
 
                     </ul>
 

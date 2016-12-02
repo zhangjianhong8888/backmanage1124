@@ -72,7 +72,7 @@
 
     <!-- BEGIN LOGIN FORM -->
 
-    <form action="/view/Login" method="post">
+    <form action="/view/Login" method="post" onsubmit="return validateLogin()">
 
         <h3 class="form-title">Login to your account</h3>
 
@@ -195,6 +195,36 @@
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 
 <!-- BEGIN CORE PLUGINS -->
+
+<script>
+    function isEmptyBlue(elename){
+        var obj = document.getElementById(elename);
+        var msg = document.getElementById(elename+"Msg");
+        if(obj.value!=""){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    window.onload = function(){
+        document.getElementById("loginName").addEventListener("blur",validateLoginNameBlue,false);
+        document.getElementById("password").addEventListener("blur",validatePasswordBlue,false);
+
+    }
+
+    function validateLoginNameBlue(){
+        return isEmptyBlue("loginName");
+    }
+    function validatePasswordBlue(){
+        return isEmptyBlue("password");
+    }
+
+    function validateLogin(){
+        return  validateLoginNameBlue()&&
+                validatePasswordBlue();
+    }
+</script>
 
 <script src="/js/jquery-1.10.1.min.js" type="text/javascript"></script>
 

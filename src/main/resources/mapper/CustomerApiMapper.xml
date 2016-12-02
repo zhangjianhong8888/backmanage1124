@@ -40,9 +40,9 @@
         update qydata.CustomerApi set apiId=#{apiId},price=#{price},enabled=#{enabled} where id=#{id}
     </update>
     <!--根据Id查找-->
-    <select id="findById" parameterType="java.lang.Integer" resultType="CustomerApi">
-        select id,apiId,customerId,price,enabled
-        from qydata.CustomerApi
-        where id=#{id}
+    <select id="findById" parameterType="java.lang.Integer" resultMap="CustomerApi_Api">
+        select ca.id,ca.apiId,ca.customerId,ca.price,ca.enabled,a.name
+        from qydata.CustomerApi ca,qydata.Api a
+        where ca.apiId=a.id and ca.id=#{id}
     </select>
 </mapper>
