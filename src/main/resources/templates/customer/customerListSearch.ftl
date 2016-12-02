@@ -223,11 +223,20 @@
                                     <td class="numeric">${customer.balance}</td>
                                     <td class="numeric">${customer.customerStatus.name}</td>
                                     <td class="numeric">${customer.createTime}</td>
-                                    <td class="numeric">
-                                        <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
-                                        <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
-                                        <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
-                                        <a href="/customer/findAllCustomerApiList/${customer.id}">管理Api</a>
+                                    <td class="numeric" style="text-align: center">
+
+                                        <p>
+
+                                            <a href="/customer/addCustomerIpAction/${customer.id}" class="btn blue" id="gritter-light">添加Ip</a>
+
+                                            <a href="/customer/addCustomerApiView/${customer.id}" class="btn black" id="gritter-light">添加Api</a><br/>
+
+                                            <a href="/customer/customerIpListAction/${customer.id}" class="btn blue" id="gritter-max">管理Ip</a>
+
+                                            <a href="/customer/findAllCustomerApiList/${customer.id}" class="btn black" id="gritter-max">管理Api</a>
+
+                                        </p>
+
                                     </td>
                                 </tr>
                                 </#list>
@@ -325,11 +334,20 @@
                                             <td class="numeric">${customer.customerStatus.name}</td>
                                             <td class="numeric">${customer.admin.name}</td>
                                             <td class="numeric">${customer.createTime}</td>
-                                            <td class="numeric">
-                                                <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
-                                                <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
-                                                <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
-                                                <a href="/customer/findAllCustomerApiList/${customer.id}">管理Api</a>
+                                            <td class="numeric" style="text-align: center">
+
+                                                <p>
+
+                                                    <a href="/customer/addCustomerIpAction/${customer.id}" class="btn blue" id="gritter-light">添加Ip</a>
+
+                                                    <a href="/customer/addCustomerApiView/${customer.id}" class="btn black" id="gritter-light">添加Api</a><br/>
+
+                                                    <a href="/customer/customerIpListAction/${customer.id}" class="btn blue" id="gritter-max">管理Ip</a>
+
+                                                    <a href="/customer/findAllCustomerApiList/${customer.id}" class="btn black" id="gritter-max">管理Api</a>
+
+                                                </p>
+
                                             </td>
                                         </tr>
                                         </#list>
@@ -427,11 +445,20 @@
                                             <td class="numeric">${customer.customerStatus.name}</td>
                                             <td class="numeric">${customer.admin.name}</td>
                                             <td class="numeric">${customer.createTime}</td>
-                                            <td class="numeric">
-                                                <a href="/customer/addCustomerIp/${customer.id}">添加Ip</a>
-                                                <a href="/customer/customerIpListAction/${customer.id}">管理Ip</a><br/>
-                                                <a href="/customer/addCustomerApiAction/${customer.id}">添加Api</a>
-                                                <a href="/customer/findAllCustomerApiList/${customer.id}">管理Api</a>
+                                            <td class="numeric" style="text-align: center">
+
+                                                <p>
+
+                                                    <a href="/customer/addCustomerIpAction/${customer.id}" class="btn blue" id="gritter-light">添加Ip</a>
+
+                                                    <a href="/customer/addCustomerApiView/${customer.id}" class="btn black" id="gritter-light">添加Api</a><br/>
+
+                                                    <a href="/customer/customerIpListAction/${customer.id}" class="btn blue" id="gritter-max">管理Ip</a>
+
+                                                    <a href="/customer/findAllCustomerApiList/${customer.id}" class="btn black" id="gritter-max">管理Api</a>
+
+                                                </p>
+
                                             </td>
                                         </tr>
                                         </#list>

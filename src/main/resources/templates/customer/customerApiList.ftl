@@ -151,7 +151,7 @@
 
                         </li>
 
-                        <li><a href="#">客户列表</a></li>
+                        <li><a href="#">Api列表</a></li>
 
                     </ul>
 
@@ -207,7 +207,11 @@
                                     <#if !customerApi.enabled>
                                         <td>未激活</td>
                                     </#if >
-                                    <td><a href="/customer/findCustomerApiById/${customerApi.id}">修改</a></td>
+                                    <td class="numeric" style="text-align: center">
+                                        <p>
+                                            <a href="/customer/findCustomerApiById/${customerApi.id}" class="btn blue" id="gritter-light">修改</a>
+                                        </p>
+                                    </td>
                                 </tr>
                                 </#list>
                                 </tbody>

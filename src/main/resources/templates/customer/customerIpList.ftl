@@ -151,7 +151,7 @@
 
                         </li>
 
-                        <li><a href="#">客户列表</a></li>
+                        <li><a href="#">Ip列表</a></li>
 
                     </ul>
 
@@ -200,8 +200,10 @@
                                 <tr>
                                     <td>${customerIp.beginIpRaw}</td>
                                     <td>${customerIp.endIpRaw}</td>
-                                    <td class="numeric">
-                                        <a href="/customer/deleteIp/${customerIp.id}/${customerIp.customerId}">删除</a>
+                                    <td class="numeric" style="text-align: center">
+                                        <p>
+                                            <a href="/customer/deleteIp/${customerIp.id}/${customerIp.customerId}" class="btn red" id="gritter-light">删除</a>
+                                        </p>
                                     </td>
                                 </tr>
                                 </#list>

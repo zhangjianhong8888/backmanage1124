@@ -300,7 +300,7 @@
 
                                     <div class="control-group">
 
-                                        <label class="control-label">账&nbsp;&nbsp;&nbsp;&nbsp;户<span class="required">*</span></label>
+                                        <label class="control-label">账&nbsp;&nbsp;户<span class="required">*</span></label>
 
                                         <div class="controls">
 

@@ -200,11 +200,17 @@
 
                                     <li><a href="#" data-toggle="tab">Grid</a></li>
 
-                                    <li class="active"><a href="javaScript:;" onclick="addCustomerApi()" data-toggle="tab">Default</a></li>
+                                    <li class="active"><a href="#"" data-toggle="tab">Default</a></li>
 
                                 </ul>
 
                                 <div class="tab-content">
+
+                                    <div class="form-search pull-left">
+
+                                        <a href="javaScript:;" onclick="addCustomerApi()"><i class="icon-plus"></i>Add</a>
+
+                                    </div>
 
                                     <div class="tab-pane active" id="portlet_tab1">
 
@@ -226,7 +232,7 @@
 
                                             <div class="control-group">
 
-                                                <label class="control-label">价&nbsp;&nbsp;&nbsp;&nbsp;格</label>
+                                                <label class="control-label">价&nbsp;&nbsp;格</label>
 
                                                 <div class="controls">
 
@@ -290,6 +296,7 @@
                                             </div>
 
                                             </div>
+
                                             </div>
 
                                             <div class="form-actions">

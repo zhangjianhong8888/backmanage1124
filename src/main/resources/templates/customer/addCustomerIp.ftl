@@ -144,7 +144,7 @@
 
                             <i class="icon-home"></i>
 
-                            <a href="index.html">Home</a>
+                            <a href="index.html">首页</a>
 
                             <span class="icon-angle-right"></span>
 
@@ -152,13 +152,13 @@
 
                         <li>
 
-                            <a href="#">Form Stuff</a>
+                            <a href="#">Ip管理</a>
 
                             <span class="icon-angle-right"></span>
 
                         </li>
 
-                        <li><a href="#">Form Layouts</a></li>
+                        <li><a href="#">添加Ip</a></li>
 
                     </ul>
 
@@ -196,21 +196,29 @@
 
                                 <ul class="nav nav-tabs">
 
-                                    <li><a href="#portlet_tab3" data-toggle="tab">Inline</a></li>
+                                    <li><a href="#" data-toggle="tab">Inline</a></li>
 
-                                    <li><a href="#portlet_tab2" data-toggle="tab">Grid</a></li>
+                                    <li><a href="#" data-toggle="tab">Grid</a></li>
 
-                                    <li class="active"><a href="javaScript:;" onclick="add()" data-toggle="tab">Default</a></li>
+                                    <li class="active"><a href="#" data-toggle="tab">Default</a></li>
 
                                 </ul>
 
                                 <div class="tab-content">
+
+                                    <div class="form-search pull-left">
+
+                                        <a href="javaScript:;" onclick="add()"><i class="icon-plus"></i>Add</a>
+
+                                    </div>
 
                                     <div class="tab-pane active" id="portlet_tab1">
 
                                         <!-- BEGIN FORM-->
 
                                         <form action="/customer/insertCustomerIp" class="form-horizontal" method="post" onsubmit="return validateCustomerIp()">
+
+                                            <label class="control-label">请输入Ip段<span class="required">*</span></label>
 
                                             <div class="control-group">
 
@@ -222,24 +230,31 @@
                                                     </#if>
                                                 </div>
 
-                                                <label class="control-label">请输入Ip段</label>
-
                                                 <div class="controls" id="cloneAddDiv">
+
                                                     <input type="hidden" id="customerId" name="customerId" value="${id}" class="m-wrap medium" />
 
                                                     <div id="addDiv">
+
                                                     <input type="text" id="beginIp" name="beginIp" placeholder="例如：192.168.111.12" class="m-wrap medium" />
+
                                                         <span class="help-inline" id="beginIpMsg"></span>
+
                                                     ---
-                                                    <input type="text" id="endIp" name="endIp" placeholder="例如：192.168.111.12" class="m-wrap medium" />
+
+                                                        <input type="text" id="endIp" name="endIp" placeholder="例如：192.168.111.12" class="m-wrap medium" />
+
                                                         <span class="help-inline" id="endIpMsg"></span>
+
                                                     </div>
 
                                                 </div>
+
                                             </div>
+
                                             <div class="form-actions">
                                                 <button type="submit" class="btn blue"><i class="icon-ok"></i> Save</button>
-                                                <button type="button" class="btn">Cancel</button>
+                                                <button type="reset" class="btn">Cancel</button>
                                             </div>
 
                                         </form>

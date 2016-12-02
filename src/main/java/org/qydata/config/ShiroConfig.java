@@ -209,9 +209,9 @@ public class ShiroConfig {
 	public ShiroFilterFactoryBean shiroFilter(){
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(securityManager());
-		//认证之后的跳转路径
-		bean.setLoginUrl("/view/loginUrl");
 		//认证失败之后的跳转路径
+		bean.setLoginUrl("/");
+		//授权失败之后的跳转路径
 		bean.setUnauthorizedUrl("/view/unauthUrl");
 		//登录成功之后跳转访问路径
 		bean.setSuccessUrl("/view/successUrl");
@@ -220,7 +220,7 @@ public class ShiroConfig {
 		filters.put("anon", new AnonymousFilter());
 		bean.setFilters(filters);
 		Map<String, String> chains = new HashMap<String,String>();
-		chains.put("/view/loginUrl", "anon");
+		chains.put("/", "anon");
 		chains.put("/view/successUrl", "authc");
 		chains.put("/view/unauthUrl", "authc");
 		//出错页面

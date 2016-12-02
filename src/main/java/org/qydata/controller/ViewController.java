@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Administrator on 2016/11/20.
  */
 @Controller
-@RequestMapping("/view")
+
 public class ViewController {
 
     private final Logger log = Logger.getLogger(this.getClass());
@@ -28,13 +28,13 @@ public class ViewController {
      * 登录
      * @return
      */
-    @RequestMapping("/loginUrl")
+    @RequestMapping("/")
     public String loginUrl() { return "view/login";}
     /**
      * 未授权
      * @return
      */
-    @RequestMapping("/unauthUrl")
+    @RequestMapping("/view/unauthUrl")
     public String unauthUrl() {
         return "view/role";
     }
@@ -42,12 +42,12 @@ public class ViewController {
      * 登录成功
      * @return
      */
-    @RequestMapping("/successUrl")
+    @RequestMapping("/view/successUrl")
     public String successUrl() {
         return "view/welcome";
     }
 
-    @RequestMapping("/Login")
+    @RequestMapping("/view/Login")
     public String login(HttpServletRequest request, String loginName, String password, RedirectAttributes model) {
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(loginName, password);
